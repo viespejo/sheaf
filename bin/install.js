@@ -56,6 +56,7 @@ const docsDefaultRootRegex = new RegExp(
 const args = process.argv.slice(2);
 const hasHelp = args.includes('--help') || args.includes('-h');
 const hasDryRun = args.includes('--dry-run') || args.includes('-d');
+const hasClaude = args.includes('--claude');
 
 function parseToArg(argv) {
   let target = null;
@@ -157,12 +158,15 @@ function resolveInstallTarget(targetInput) {
       ? resolvePathFromCwd(rawPath.trim())
       : DEFAULT_GLOBAL_DIR;
     const label = dir.replace(os.homedir(), '~');
+    const claudeDir = path.join(os.homedir(), '.claude');
 
     return {
       mode: 'global',
       dir,
       label,
+      claudeDir,
       pathPrefix: ensureTrailingSlash(dir), // always absolute for global
+      claudePathPrefix: ensureTrailingSlash(claudeDir),
     };
   }
 
@@ -191,11 +195,17 @@ function resolveInstallTarget(targetInput) {
   const label = rel === '' ? './' : `./${relPosix}`;
   const pathPrefix = rel === '' ? './' : `./${relPosix}/`;
 
+  const claudeDir = path.join(process.cwd(), '.claude');
+  const claudeRel = path.relative(process.cwd(), claudeDir);
+  const claudePathPrefix = `./${toPosix(claudeRel)}/`;
+
   return {
     mode: 'local',
     dir,
     label,
-    pathPrefix, // always relative for local
+    claudeDir,
+    pathPrefix,
+    claudePathPrefix,
   };
 }
 
@@ -210,6 +220,7 @@ if (hasHelp) {
                                  ${dim}global:<path>${reset}   -> absolute target (~/..., ./..., /...)
                                  ${dim}local${reset}           -> ${DEFAULT_LOCAL_LABEL}
                                  ${dim}local:<path>${reset}    -> must remain inside current workspace
+    ${cyan}--claude${reset}                   Also install commands for Claude Code in .claude/
     ${cyan}-d, --dry-run${reset}              Show what would be installed without writing files
     ${cyan}-h, --help${reset}                 Show this help message
 
@@ -329,7 +340,13 @@ async function promptForTarget() {
 /**
  * Recursively copy directory, replacing path prefixes inside markdown files.
  */
-function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
+function copyWithPathReplacement(
+  srcDir,
+  destDir,
+  pathPrefix,
+  dryRun,
+  isClaude = false,
+) {
   if (!dryRun) {
     fs.mkdirSync(destDir, { recursive: true });
   } else {
@@ -343,7 +360,7 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
     const destPath = path.join(destDir, entry.name);
 
     if (entry.isDirectory()) {
-      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun);
+      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun, isClaude);
       continue;
     }
 
@@ -357,11 +374,33 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
 
       content = content.replace(docsDefaultRootRegex, targetRoot);
 
+      if (isClaude && srcDir.endsWith('prompts')) {
+        // Extract frontmatter name/description
+        const nameMatch = content.match(/name:\s*(.+)/);
+        const descMatch = content.match(/description:\s*(.+)/);
+        const name = nameMatch
+          ? nameMatch[1].trim()
+          : entry.name.replace('.md', '');
+        const desc = descMatch ? descMatch[1].trim() : '';
+
+        const newFrontmatter = `---\nname: ${name}\ndescription: ${desc}\ndisable-model-invocation: true\n---`;
+
+        // Remove existing frontmatter and "## user" section with tool boilerplate
+        content = content
+          .replace(/^---[\s\S]*?---\n*/, '')
+          .replace(
+            /## user[\s\S]*?(?=<objective>|<process>|<execution_context>|<context>)/i,
+            '',
+          );
+
+        content = `${newFrontmatter}\n\n${content.trim()}\n`;
+      }
+
       if (!dryRun) {
         fs.writeFileSync(destPath, content);
       } else {
         console.log(
-          `  ${dim}[dry-run] write ${destPath} (with path replacement)${reset}`,
+          `  ${dim}[dry-run] write ${destPath} (with path replacement${isClaude ? ' and Claude adaptation' : ''})${reset}`,
         );
       }
       continue;
@@ -412,6 +451,36 @@ function install(target, dryRun) {
     }
   }
   console.log(`  ${green}✓${reset} Installed sheaf`);
+
+  // Claude Code installation if requested
+  if (hasClaude) {
+    const claudeCommandsDest = path.join(target.claudeDir, 'commands', 'sheaf');
+    const claudeSheafDest = path.join(target.claudeDir, 'sheaf');
+    const claudeLabel = target.mode === 'global' ? '~/.claude' : './.claude';
+    const claudePrefix = target.claudePathPrefix;
+
+    if (fs.existsSync(promptsSrc)) {
+      copyWithPathReplacement(
+        promptsSrc,
+        claudeCommandsDest,
+        claudePrefix,
+        dryRun,
+        true,
+      );
+    }
+
+    const srcDirs = ['templates', 'workflows', 'references', 'rules'];
+    for (const dir of srcDirs) {
+      const dirSrc = path.join(srcRoot, 'src', dir);
+      const dirDest = path.join(claudeSheafDest, dir);
+      if (fs.existsSync(dirSrc)) {
+        copyWithPathReplacement(dirSrc, dirDest, claudePrefix, dryRun, false);
+      }
+    }
+    console.log(
+      `  ${green}✓${reset} Installed Claude files in ${cyan}${claudeLabel}${reset} (pointing to ${claudePrefix})`,
+    );
+  }
 
   console.log(`
   ${green}${dryRun ? 'Dry-run complete!' : 'Done!'}${reset}
