@@ -53,10 +53,10 @@ autonomous: true
 </objective>
 
 <context>
-@.paul/PROJECT.md
-@.paul/ROADMAP.md
-@.paul/STATE.md
-@relevant/source/files.ts
+.sheaf/PROJECT.md
+.sheaf/ROADMAP.md
+.sheaf/STATE.md
+`relevant/source/files.ts`
 </context>
 
 <acceptance_criteria>
@@ -165,7 +165,7 @@ Then [expected outcome]
 
 ## Boundaries Section
 
-PAUL plans include explicit boundaries:
+Sheaf plans include explicit boundaries:
 
 ```markdown
 <boundaries>
