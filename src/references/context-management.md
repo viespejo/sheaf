@@ -48,17 +48,17 @@ SHEAF uses context brackets to adapt behavior based on remaining capacity:
 ```markdown
 <!-- GOOD: targeted loading -->
 <context>
-@.sheaf/STATE.md
-@src/path/to/specific/file.ts
+.sheaf/STATE.md
+src/path/to/specific/file.ts
 </context>
 
 <!-- BAD: kitchen sink loading -->
 <context>
-@.sheaf/PROJECT.md
-@.sheaf/ROADMAP.md
-@.sheaf/STATE.md
-@.sheaf/phases/01-*/**/*.md
-@src/**
+.sheaf/PROJECT.md
+.sheaf/ROADMAP.md
+.sheaf/STATE.md
+.sheaf/phases/01-*/**/*.md
+src/**
 </context>
 ```
 
@@ -67,14 +67,14 @@ SHEAF uses context brackets to adapt behavior based on remaining capacity:
 Prefer:
 
 ```markdown
-@.sheaf/phases/01-foundation/01-01-SUMMARY.md
+.sheaf/phases/01-foundation/01-01-SUMMARY.md
 ```
 
 Avoid loading both unless needed:
 
 ```markdown
-@.sheaf/phases/01-foundation/01-01-PLAN.md
-@.sheaf/phases/01-foundation/01-01-SUMMARY.md
+.sheaf/phases/01-foundation/01-01-PLAN.md
+.sheaf/phases/01-foundation/01-01-SUMMARY.md
 ```
 
 Summary = what was built. Plan = what was intended.

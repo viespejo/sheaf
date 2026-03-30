@@ -153,8 +153,8 @@ Create handoff document:
 ## Reference Files for Next Session
 
 ```text
-@.sheaf/STATE.md
-@...
+.sheaf/STATE.md
+...
 ```
 
 ---

@@ -24,9 +24,7 @@ Preview install without writing files:
 npx sheaf --to local --dry-run
 ```
 
-
 ## 1) First-time setup (once per project)
-
 
 Required docs:
 
@@ -58,11 +56,13 @@ Never skip UNIFY after APPLY.
 - `/sheaf:resume` → start of session, restore context, get ONE next action
 - `/sheaf:progress` → mid-session checkpoint, get ONE next action
 - `/sheaf:handoff` → end session safely with continuity document
+- `/sheaf:brainstorm [topic]` → run/continue a structured ideation session with persistent notes
 
 Quick rule:
 
 - new session → `resume`
 - active session + unsure next step → `progress`
+- need solution exploration before planning → `brainstorm`
 - ending session / context risk → `handoff`
 
 ## 4) Daily routine
@@ -74,10 +74,11 @@ Start of day:
 
 During work:
 
-1. `/sheaf:plan`
-2. `/sheaf:apply [plan-path]`
-3. `/sheaf:unify [plan-path]`
-4. `/sheaf:progress` if you need a checkpoint
+1. `/sheaf:brainstorm [topic]` (optional, when you need ideation first)
+2. `/sheaf:plan`
+3. `/sheaf:apply [plan-path]`
+4. `/sheaf:unify [plan-path]`
+5. `/sheaf:progress` if you need a checkpoint
 
 End of day:
 

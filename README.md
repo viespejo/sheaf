@@ -60,6 +60,7 @@ npx sheaf --to local:./.ai
 - `src/templates/*` → `<target>/sheaf/templates/`
 - `src/workflows/*` → `<target>/sheaf/workflows/`
 - `src/references/*` → `<target>/sheaf/references/`
+- `src/skills/*` → `<target>/sheaf/skills/`
 - `src/rules/*` → `<target>/sheaf/rules/` (if present)
 
 ### Path rewriting behavior
@@ -78,8 +79,6 @@ During install, markdown references to `~/.codecompanion` are rewritten automati
 ---
 
 ## What SHEAF is for
-
-
 
 Use SHEAF when you want to:
 
@@ -169,6 +168,17 @@ Create or continue one implementation plan for a selected story.
 - Writes PLAN only after explicit approval.
 - Updates state/roadmap after approval.
 - Ends with one action: `/sheaf:apply [plan-path]`.
+
+### `/sheaf:brainstorm`
+
+Run a BMAD-style interactive brainstorming session with continuity.
+
+- Detects previous brainstorming sessions and supports continue/new selection.
+- Supports 4 approach modes: user-selected, AI-recommended, random, progressive flow.
+- Facilitates collaborative ideation before convergence.
+- Organizes ideas into themes and produces prioritized action steps.
+- Persists session notes in `.sheaf/brainstorming/` for later continuation.
+- Ends with one deterministic next action.
 
 ### `/sheaf:apply`
 

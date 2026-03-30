@@ -54,7 +54,7 @@ autonomous: true # false if plan has checkpoints requiring user interaction
 
 ## Source Files
 
-@path/to/relevant/source.ts
+path/to/relevant/source.ts
 </context>
 
 <skills>

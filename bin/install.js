@@ -442,7 +442,7 @@ function install(target, dryRun) {
     console.log(`  ${dim}[dry-run] mkdir -p ${sheafDest}${reset}`);
   }
 
-  const srcDirs = ['templates', 'workflows', 'references', 'rules'];
+  const srcDirs = ['templates', 'workflows', 'references', 'skills', 'rules'];
   for (const dir of srcDirs) {
     const dirSrc = path.join(srcRoot, 'src', dir);
     const dirDest = path.join(sheafDest, dir);
@@ -469,7 +469,7 @@ function install(target, dryRun) {
       );
     }
 
-    const srcDirs = ['templates', 'workflows', 'references', 'rules'];
+    const srcDirs = ['templates', 'workflows', 'references', 'skills', 'rules'];
     for (const dir of srcDirs) {
       const dirSrc = path.join(srcRoot, 'src', dir);
       const dirDest = path.join(claudeSheafDest, dir);
