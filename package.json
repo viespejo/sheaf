@@ -1,6 +1,6 @@
 {
   "name": "@viespejo/sheaf",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Personal AI workflow tooling, opinionated and built for one",
   "bin": {
     "sheaf": "bin/install.js"
