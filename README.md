@@ -16,79 +16,69 @@ It is designed for day-to-day implementation work with one core principle:
 
 ## Installation
 
-SHEAF is installed with the project installer:
+SHEAF is installed with a guided project installer:
 
 ```bash
-npx viespejo/sheaf --help
+npx viespejo/sheaf
 ```
 
-### Choose target mode
+### Choose installation mode
 
-- **Global**: installs under `~/.codecompanion` (or custom absolute path)
-- **Local**: installs under `./.codecompanion` in the current workspace (or custom path inside workspace)
+- **Interactive (Recommended)**: Simply run the command above and follow the prompts.
+- **Flags**: Use specific flags to automate the installation.
 
-### Recommended commands (Linux)
+### Recommended commands
 
-Install globally (default path):
-
+Install for CodeCompanion (Neovim):
 ```bash
-npx viespejo/sheaf --to global
+npx viespejo/sheaf --codecompanion
 ```
 
-Install locally in current repo:
-
+Install for Claude Code:
 ```bash
-npx viespejo/sheaf --to local
-```
-
-With Claude Code support (optional):
-
-```bash
-npx viespejo/sheaf --to local --claude
+npx viespejo/sheaf --claude
 ```
 
 Preview without writing files:
-
 ```bash
-npx viespejo/sheaf --to local --dry-run
+npx viespejo/sheaf --codecompanion --dry-run
 ```
 
-Custom paths:
-
+Custom installation (Both agents, global paths, custom directory):
 ```bash
-npx viespejo/sheaf --to global:~/.codecompanion-custom
-npx viespejo/sheaf --to local:./.ai
+npx viespejo/sheaf --codecompanion --claude --scope global --install-dir ~/.ai
 ```
+
+### Installation Parameters
+
+- **Scope** (`-s, --scope`):
+  - `local` (default): References are rewritten relative to the agent's own directory (e.g., `./.codecompanion/`).
+  - `global`: References are rewritten as absolute paths to the installation target.
+- **Install Directory** (`-t, --install-dir`): The base directory where agent folders will be created.
+- **Agents**: Use `--codecompanion` and/or `--claude` to select which artifacts to install.
 
 ### What gets installed
 
-- `src/prompts/*` → `<target>/prompts/sheaf/`
-- `src/templates/*` → `<target>/sheaf/templates/`
-- `src/workflows/*` → `<target>/sheaf/workflows/`
-- `src/references/*` → `<target>/sheaf/references/`
-- `src/skills/*` → `<target>/sheaf/skills/`
-- `src/rules/*` → `<target>/sheaf/rules/` (if present)
-
-If `--claude` is used, it also installs adapted commands and files into:
-- `~/.claude/commands/sheaf/` (global) or `./.claude/commands/sheaf/` (local)
-- `~/.claude/sheaf/` (global) or `./.claude/sheaf/` (local)
+Each selected agent receives its own directory (`.codecompanion/` or `.claude/`) containing:
+- `prompts/sheaf/` (or `commands/sheaf/` for Claude)
+- `sheaf/templates/`
+- `sheaf/workflows/`
+- `sheaf/references/`
+- `sheaf/skills/`
+- `sheaf/rules/` (if present)
 
 ### Path rewriting and Adaptation behavior
 
-During install, markdown references to `~/.codecompanion` are rewritten automatically:
+During install, markdown references using the `{{AGENT_DIR}}` placeholder are rewritten automatically based on the chosen **Scope**.
 
-- to absolute paths in **global** mode
-- to workspace-relative paths in **local** mode
-
-When using `--claude`, the installer additionally:
+When installing for Claude Code, the installer additionally:
 - Strips tool-specific boilerplate (like `## user` sections).
 - Adapts frontmatter for Claude Code compatibility (e.g., `disable-model-invocation: true`).
 
 ### Important notes
 
-- Local custom install paths must remain inside the current workspace.
-- Installation is copy-based; existing files at target can be overwritten.
-- If `--to` is omitted, installer prompts interactively (TTY required).
+- Installation is copy-based; existing files at the target can be overwritten.
+- If no agent flags are provided, the installer runs in interactive mode.
 
 ---
 

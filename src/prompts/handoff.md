@@ -20,8 +20,8 @@ Use this at end of session, before context break, or when continuity quality mat
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/handoff-project.md`
-`~/.codecompanion/sheaf/references/context-management.md`
+`{{AGENT_DIR}}/sheaf/workflows/handoff-project.md`
+`{{AGENT_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
@@ -32,7 +32,7 @@ Session context (primary source)
 </context>
 
 <process>
-**Follow workflow: ~/.codecompanion/sheaf/workflows/handoff-project.md**
+**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/handoff-project.md**
 
 Core flow:
 1. Load current state snapshot

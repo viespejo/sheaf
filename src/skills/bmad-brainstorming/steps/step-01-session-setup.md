@@ -50,7 +50,7 @@ If existing session files are found:
 
 **HALT — wait for user selection before proceeding.**
 
-- If user selects **[1]** (continue): Set `{brainstorming_session_output_file}` to that file path and load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
+- If user selects **[1]** (continue): Set `{brainstorming_session_output_file}` to that file path and load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
 - If user selects **[2]** (new): Generate new filename with current date/time and proceed to step 3
 - If user selects **[3]** (see all): List all session filenames and ask which to continue or if new
 
@@ -171,10 +171,10 @@ Which approach appeals to you most? (Enter 1-4)"
 
 After user selects approach number:
 
-- **If 1:** Load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
-- **If 2:** Load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
-- **If 3:** Load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
-- **If 4:** Load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
+- **If 1:** Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
+- **If 2:** Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
+- **If 3:** Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
+- **If 4:** Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
 
 ## SUCCESS METRICS:
 

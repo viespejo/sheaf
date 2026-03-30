@@ -4,12 +4,11 @@ import fs from 'node:fs';
 import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
-import { createInterface } from 'node:readline/promises';
+import * as clack from '@clack/prompts';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Colors
 const cyan = '\x1b[36m';
 const green = '\x1b[32m';
 const yellow = '\x1b[33m';
@@ -33,67 +32,110 @@ ${cyan}  ███████╗██╗  ██╗███████╗ �
   ${pkg.tagline}
 `;
 
-const APP_DIRNAME = '.codecompanion';
-const DEFAULT_GLOBAL_DIR = path.join(os.homedir(), APP_DIRNAME);
-const DEFAULT_LOCAL_DIR = path.join(process.cwd(), APP_DIRNAME);
-const DEFAULT_GLOBAL_LABEL = DEFAULT_GLOBAL_DIR.replace(os.homedir(), '~');
-const DEFAULT_LOCAL_LABEL = `./${APP_DIRNAME}`;
+const AGENTS = {
+  codecompanion: {
+    name: 'CodeCompanion',
+    dirName: '.codecompanion',
+    promptsDir: 'prompts/sheaf',
+    description: 'Install Sheaf artifacts for CodeCompanion (Neovim)',
+    transform: (content) => content,
+  },
+  claude: {
+    name: 'Claude Code',
+    dirName: '.claude',
+    promptsDir: 'commands/sheaf',
+    description: 'Install Sheaf artifacts for Claude Code',
+    transform: (content, fileName, srcDir) => {
+      if (!srcDir.endsWith('prompts')) return content;
 
-// canonical token used inside markdown docs/templates
-const DOCS_DEFAULT_ROOT = `~/${APP_DIRNAME}`;
+      const nameMatch = content.match(/name:\s*(.+)/);
+      const descMatch = content.match(/description:\s*(.+)/);
+      const name = nameMatch ? nameMatch[1].trim() : fileName.replace('.md', '');
+      const desc = descMatch ? descMatch[1].trim() : '';
+
+      const newFrontmatter = `---\nname: ${name}\ndescription: ${desc}\ndisable-model-invocation: true\n---`;
+
+      return `${newFrontmatter}\n\n${content
+        .replace(/^---[\s\S]*?---\n*/, '')
+        .replace(
+          /## user[\s\S]*?(?=<objective>|<process>|<execution_context>|<context>)/i,
+          '',
+        )
+        .trim()}\n`;
+    },
+  },
+};
+
+const DOCS_DEFAULT_ROOT = '{{AGENT_DIR}}';
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// Match "~/.codecompanion" when followed by "/" or word boundary
+// Match placeholder used in markdown docs/templates
 const docsDefaultRootRegex = new RegExp(
-  `${escapeRegExp(DOCS_DEFAULT_ROOT)}(?=\\/|\\b)`,
+  `${escapeRegExp(DOCS_DEFAULT_ROOT)}`,
   'g',
 );
 
 // Parse args
-const args = process.argv.slice(2);
-const hasHelp = args.includes('--help') || args.includes('-h');
-const hasDryRun = args.includes('--dry-run') || args.includes('-d');
-const hasClaude = args.includes('--claude');
+const rawArgs = process.argv.slice(2);
+const hasHelp = rawArgs.includes('--help') || rawArgs.includes('-h');
+const hasDryRun = rawArgs.includes('--dry-run') || rawArgs.includes('-d');
 
-function parseToArg(argv) {
-  let target = null;
+function parseArgs(argv) {
+  const options = {
+    scope: null, // local | global
+    installDir: null,
+    agents: {
+      codecompanion: false,
+      claude: false,
+    },
+  };
 
   for (let i = 0; i < argv.length; i += 1) {
     const arg = argv[i];
 
-    if (arg === '--to' || arg === '-t') {
-      const nextArg = argv[i + 1];
-      if (!nextArg || nextArg.startsWith('-')) {
-        console.error(`  ${yellow}--to requires a non-empty value${reset}`);
+    if (arg === '--scope' || arg === '-s') {
+      const value = argv[i + 1];
+      if (value === 'local' || value === 'global') {
+        options.scope = value;
+        i += 1;
+      } else {
+        console.error(
+          `  ${yellow}Invalid scope: "${value}". Use local or global.${reset}`,
+        );
         process.exit(1);
       }
-      if (target !== null) {
-        console.error(`  ${yellow}--to can only be specified once${reset}`);
-        process.exit(1);
-      }
-      target = nextArg.trim();
-      i += 1;
       continue;
     }
 
-    if (arg.startsWith('--to=') || arg.startsWith('-t=')) {
-      const inlineValue = arg.slice(arg.indexOf('=') + 1).trim();
-      if (!inlineValue) {
-        console.error(`  ${yellow}--to requires a non-empty value${reset}`);
+    if (arg === '--install-dir' || arg === '-t') {
+      const value = argv[i + 1];
+      if (value && !value.startsWith('-')) {
+        options.installDir = value;
+        i += 1;
+      } else {
+        console.error(
+          `  ${yellow}--install-dir requires a non-empty value${reset}`,
+        );
         process.exit(1);
       }
-      if (target !== null) {
-        console.error(`  ${yellow}--to can only be specified once${reset}`);
-        process.exit(1);
-      }
-      target = inlineValue;
+      continue;
+    }
+
+    if (arg === '--codecompanion') {
+      options.agents.codecompanion = true;
+      continue;
+    }
+
+    if (arg === '--claude') {
+      options.agents.claude = true;
+      continue;
     }
   }
 
-  return target;
+  return options;
 }
 
 /**
@@ -112,229 +154,100 @@ function expandTilde(filePath) {
   return filePath;
 }
 
-function resolvePathFromCwd(inputPath) {
-  const expanded = expandTilde(inputPath);
-
-  if (typeof expanded !== 'string' || expanded.length === 0) {
-    return expanded;
-  }
-
-  if (path.isAbsolute(expanded)) {
-    return expanded;
-  }
-
-  return path.resolve(process.cwd(), expanded);
-}
-
-function isWithin(baseDir, candidateDir) {
-  const rel = path.relative(baseDir, candidateDir);
-  return rel === '' || (!rel.startsWith('..') && !path.isAbsolute(rel));
-}
-
 function ensureTrailingSlash(value) {
   return value.endsWith('/') ? value : `${value}/`;
 }
 
-function toPosix(value) {
-  return value.split(path.sep).join('/');
-}
+/**
+ * Resolves the final configuration, either from flags or interactive prompts.
+ */
+async function resolveConfig(options) {
+  const isInteractive = !options.agents.codecompanion && !options.agents.claude;
 
-function resolveInstallTarget(targetInput) {
-  const raw = targetInput.trim();
-  const match = raw.match(/^(global|local)(?::(.+))?$/);
-
-  if (!match) {
-    console.error(
-      `  ${yellow}Invalid --to value: "${targetInput}". Use global[:path] or local[:path].${reset}`,
-    );
-    process.exit(1);
-  }
-
-  const scope = match[1];
-  const rawPath = match[2]; // undefined when omitted
-
-  if (scope === 'global') {
-    const dir = rawPath
-      ? resolvePathFromCwd(rawPath.trim())
-      : DEFAULT_GLOBAL_DIR;
-    const label = dir.replace(os.homedir(), '~');
-    const claudeDir = path.join(os.homedir(), '.claude');
+  if (!isInteractive) {
+    const scope = options.scope || 'local';
+    const installDir = options.installDir
+      ? path.resolve(process.cwd(), expandTilde(options.installDir))
+      : scope === 'local'
+        ? process.cwd()
+        : os.homedir();
 
     return {
-      mode: 'global',
-      dir,
-      label,
-      claudeDir,
-      pathPrefix: ensureTrailingSlash(dir), // always absolute for global
-      claudePathPrefix: ensureTrailingSlash(claudeDir),
+      scope,
+      installDir,
+      agents: options.agents,
     };
   }
 
-  // local
-  let dir = DEFAULT_LOCAL_DIR;
+  // Clack interactive flow
+  clack.intro(banner);
 
-  if (rawPath) {
-    const expanded = expandTilde(rawPath.trim());
-    const candidate = path.isAbsolute(expanded)
-      ? path.normalize(expanded)
-      : path.resolve(process.cwd(), expanded);
-
-    if (!isWithin(process.cwd(), candidate)) {
-      console.error(
-        `  ${yellow}Invalid local path: must stay inside current workspace.${reset}`,
-      );
-      console.error(`  ${dim}Received: ${candidate}${reset}`);
-      process.exit(1);
-    }
-
-    dir = candidate;
-  }
-
-  const rel = path.relative(process.cwd(), dir);
-  const relPosix = toPosix(rel);
-  const label = rel === '' ? './' : `./${relPosix}`;
-  const pathPrefix = rel === '' ? './' : `./${relPosix}/`;
-
-  const claudeDir = path.join(process.cwd(), '.claude');
-  const claudeRel = path.relative(process.cwd(), claudeDir);
-  const claudePathPrefix = `./${toPosix(claudeRel)}/`;
-
-  return {
-    mode: 'local',
-    dir,
-    label,
-    claudeDir,
-    pathPrefix,
-    claudePathPrefix,
-  };
-}
-
-// Help first
-if (hasHelp) {
-  console.log(banner);
-  console.log(`  ${yellow}Usage:${reset} npx viespejo/sheaf [options]
-
-  ${yellow}Options:${reset}
-    ${cyan}-t, --to <target>${reset}          Install target:
-                                 ${dim}global${reset}          -> ${DEFAULT_GLOBAL_LABEL}
-                                 ${dim}global:<path>${reset}   -> absolute target (~/..., ./..., /...)
-                                 ${dim}local${reset}           -> ${DEFAULT_LOCAL_LABEL}
-                                 ${dim}local:<path>${reset}    -> must remain inside current workspace
-    ${cyan}--claude${reset}                   Also install commands for Claude Code in .claude/
-    ${cyan}-d, --dry-run${reset}              Show what would be installed without writing files
-    ${cyan}-h, --help${reset}                 Show this help message
-
-  ${yellow}Global vs Local:${reset}
-    ${dim}global${reset}: install in a system path; markdown references are rewritten as absolute paths.
-    ${dim}local${reset}:  install inside current workspace; markdown references are rewritten as workspace-relative paths.
-
-  ${yellow}Behavior:${reset}
-    If ${cyan}--to${reset} is omitted, installer prompts interactively in TTY.
-
-  ${yellow}Examples:${reset}
-    npx viespejo/sheaf --to global
-    npx viespejo/sheaf --to global:~/${APP_DIRNAME}-custom
-    npx viespejo/sheaf --to local
-    npx viespejo/sheaf --to local:./.ai
-`);
-  process.exit(0);
-}
-
-async function promptForTarget() {
-  if (!process.stdin.isTTY || !process.stdout.isTTY) {
-    console.error(
-      `  ${yellow}Missing --to <target>. Interactive prompt requires a TTY.${reset}`,
-    );
-    console.error(`  ${dim}Try: npx viespejo/sheaf --to local${reset}`);
-    process.exit(1);
-  }
-
-  const rl = createInterface({
-    input: process.stdin,
-    output: process.stdout,
+  const selectedAgents = await clack.multiselect({
+    message: 'Which agents do you want to install?',
+    options: Object.entries(AGENTS).map(([id, agent]) => ({
+      value: id,
+      label: agent.name,
+      hint: agent.description,
+    })),
+    initialValues: ['codecompanion'],
   });
 
-  let interruptedExitCode = null;
-
-  const onSigint = () => {
-    interruptedExitCode = 130;
-    console.log(`\n  ${yellow}Cancelled by user (Ctrl+C).${reset}`);
-    rl.close();
-  };
-
-  const onSigterm = () => {
-    interruptedExitCode = 143;
-    console.log(`\n  ${yellow}Terminated (SIGTERM).${reset}`);
-    rl.close();
-  };
-
-  process.once('SIGINT', onSigint);
-  process.once('SIGTERM', onSigterm);
-
-  try {
-    while (true) {
-      console.log(`  ${yellow}Choose installation target:${reset}
-  ${dim}global:${reset} install in system path, replacements become absolute
-  ${dim}local:${reset}  install in workspace, replacements become relative
-
-  ${cyan}1${reset}) global ${dim}(${DEFAULT_GLOBAL_LABEL})${reset}
-  ${cyan}2${reset}) local  ${dim}(${DEFAULT_LOCAL_LABEL})${reset}
-  ${cyan}3${reset}) global custom path
-  ${cyan}4${reset}) local custom path
-  ${cyan}q${reset}) quit
-`);
-
-      let choice;
-      try {
-        choice =
-          (await rl.question(`  Choice ${dim}[2]${reset}: `))
-            .trim()
-            .toLowerCase() || '2';
-      } catch (error) {
-        if (interruptedExitCode !== null) {
-          process.exit(interruptedExitCode);
-        }
-
-        if (error && error.name === 'AbortError') {
-          process.exit(130);
-        }
-
-        throw error;
-      }
-
-      if (choice === 'q' || choice === 'quit' || choice === 'exit') {
-        console.log(`  ${dim}Aborted.${reset}`);
-        process.exit(0);
-      }
-
-      if (choice === '1') return 'global';
-      if (choice === '2') return 'local';
-
-      if (choice === '3') {
-        const custom = (await rl.question(`  Global custom path: `)).trim();
-        if (!custom) {
-          console.error(`  ${yellow}Path cannot be empty${reset}`);
-          continue;
-        }
-        return `global:${custom}`;
-      }
-
-      if (choice === '4') {
-        const custom = (await rl.question(`  Local custom path: `)).trim();
-        if (!custom) {
-          console.error(`  ${yellow}Path cannot be empty${reset}`);
-          continue;
-        }
-        return `local:${custom}`;
-      }
-
-      console.error(`  ${yellow}Invalid choice: ${choice}${reset}\n`);
-    }
-  } finally {
-    process.removeListener('SIGINT', onSigint);
-    process.removeListener('SIGTERM', onSigterm);
-    rl.close();
+  if (clack.isCancel(selectedAgents) || selectedAgents.length === 0) {
+    clack.cancel('Installation cancelled. No agents selected.');
+    process.exit(0);
   }
+
+  const scope = await clack.select({
+    message: 'Select path strategy (Scope):',
+    options: [
+      {
+        value: 'local',
+        label: 'Local',
+        hint: 'Relative paths (recommended for portability)',
+      },
+      {
+        value: 'global',
+        label: 'Global',
+        hint: 'Absolute paths (recommended for global installs)',
+      },
+    ],
+    initialValue: 'local',
+  });
+
+  if (clack.isCancel(scope)) {
+    clack.cancel('Installation cancelled.');
+    process.exit(0);
+  }
+
+  const defaultDir = options.installDir
+    ? path.resolve(process.cwd(), expandTilde(options.installDir))
+    : scope === 'local'
+      ? './'
+      : '~/';
+  const installDirInput = await clack.text({
+    message: 'Base installation directory:',
+    placeholder: defaultDir,
+    initialValue: defaultDir,
+    validate(value) {
+      if (!value) return 'Directory is required';
+    },
+  });
+
+  if (clack.isCancel(installDirInput)) {
+    clack.cancel('Installation cancelled.');
+    process.exit(0);
+  }
+
+  const installDir = path.resolve(process.cwd(), expandTilde(installDirInput));
+
+  return {
+    scope,
+    installDir,
+    agents: {
+      codecompanion: selectedAgents.includes('codecompanion'),
+      claude: selectedAgents.includes('claude'),
+    },
+  };
 }
 
 /**
@@ -345,12 +258,12 @@ function copyWithPathReplacement(
   destDir,
   pathPrefix,
   dryRun,
-  isClaude = false,
+  transform = (c) => c,
 ) {
   if (!dryRun) {
     fs.mkdirSync(destDir, { recursive: true });
   } else {
-    console.log(`  ${dim}[dry-run] mkdir -p ${destDir}${reset}`);
+    console.log(`    ${dim}[dry-run] mkdir -p ${destDir}${reset}`);
   }
 
   const entries = fs.readdirSync(srcDir, { withFileTypes: true });
@@ -360,7 +273,7 @@ function copyWithPathReplacement(
     const destPath = path.join(destDir, entry.name);
 
     if (entry.isDirectory()) {
-      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun, isClaude);
+      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun, transform);
       continue;
     }
 
@@ -373,34 +286,13 @@ function copyWithPathReplacement(
         : pathPrefix;
 
       content = content.replace(docsDefaultRootRegex, targetRoot);
-
-      if (isClaude && srcDir.endsWith('prompts')) {
-        // Extract frontmatter name/description
-        const nameMatch = content.match(/name:\s*(.+)/);
-        const descMatch = content.match(/description:\s*(.+)/);
-        const name = nameMatch
-          ? nameMatch[1].trim()
-          : entry.name.replace('.md', '');
-        const desc = descMatch ? descMatch[1].trim() : '';
-
-        const newFrontmatter = `---\nname: ${name}\ndescription: ${desc}\ndisable-model-invocation: true\n---`;
-
-        // Remove existing frontmatter and "## user" section with tool boilerplate
-        content = content
-          .replace(/^---[\s\S]*?---\n*/, '')
-          .replace(
-            /## user[\s\S]*?(?=<objective>|<process>|<execution_context>|<context>)/i,
-            '',
-          );
-
-        content = `${newFrontmatter}\n\n${content.trim()}\n`;
-      }
+      content = transform(content, entry.name, srcDir);
 
       if (!dryRun) {
         fs.writeFileSync(destPath, content);
       } else {
         console.log(
-          `  ${dim}[dry-run] write ${destPath} (with path replacement${isClaude ? ' and Claude adaptation' : ''})${reset}`,
+          `    ${dim}[dry-run] write ${destPath} (with path replacement)${reset}`,
         );
       }
       continue;
@@ -409,97 +301,99 @@ function copyWithPathReplacement(
     if (!dryRun) {
       fs.copyFileSync(srcPath, destPath);
     } else {
-      console.log(`  ${dim}[dry-run] copy ${srcPath} -> ${destPath}${reset}`);
+      console.log(`    ${dim}[dry-run] copy ${srcPath} -> ${destPath}${reset}`);
     }
   }
 }
 
-function install(target, dryRun) {
+function install(config, dryRun) {
   const srcRoot = path.join(__dirname, '..');
-  const targetDir = target.dir;
-  const pathPrefix = target.pathPrefix;
+  const { scope, installDir, agents } = config;
 
-  console.log(
-    `  Installing to ${cyan}${target.label}${reset}${dryRun ? ` ${dim}(dry-run)${reset}` : ''}\n`,
-  );
+  console.log(`\n  ${cyan}Installing agents...${reset}\n`);
 
-  // prompts/sheaf
-  const promptsSrc = path.join(srcRoot, 'src', 'prompts');
-  const promptsDest = path.join(targetDir, 'prompts', 'sheaf');
+  for (const [id, agent] of Object.entries(AGENTS)) {
+    if (!agents[id]) continue;
 
-  if (fs.existsSync(promptsSrc)) {
-    copyWithPathReplacement(promptsSrc, promptsDest, pathPrefix, dryRun);
-    console.log(`  ${green}✓${reset} Installed prompts/sheaf`);
-  } else {
-    console.log(`  ${yellow}!${reset} Skipped prompts (src/prompts not found)`);
-  }
+    const targetDir = path.join(installDir, agent.dirName);
+    const pathPrefix =
+      scope === 'local'
+        ? `./${agent.dirName}/`
+        : ensureTrailingSlash(targetDir);
 
-  // sheaf/*
-  const sheafDest = path.join(targetDir, 'sheaf');
-  if (!dryRun) {
-    fs.mkdirSync(sheafDest, { recursive: true });
-  } else {
-    console.log(`  ${dim}[dry-run] mkdir -p ${sheafDest}${reset}`);
-  }
+    console.log(
+      `  Target: ${green}${agent.name}${reset} -> ${cyan}${targetDir}${reset} (${scope})`,
+    );
 
-  const srcDirs = ['templates', 'workflows', 'references', 'skills', 'rules'];
-  for (const dir of srcDirs) {
-    const dirSrc = path.join(srcRoot, 'src', dir);
-    const dirDest = path.join(sheafDest, dir);
-    if (fs.existsSync(dirSrc)) {
-      copyWithPathReplacement(dirSrc, dirDest, pathPrefix, dryRun);
-    }
-  }
-  console.log(`  ${green}✓${reset} Installed sheaf`);
-
-  // Claude Code installation if requested
-  if (hasClaude) {
-    const claudeCommandsDest = path.join(target.claudeDir, 'commands', 'sheaf');
-    const claudeSheafDest = path.join(target.claudeDir, 'sheaf');
-    const claudeLabel = target.mode === 'global' ? '~/.claude' : './.claude';
-    const claudePrefix = target.claudePathPrefix;
+    // prompts/sheaf
+    const promptsSrc = path.join(srcRoot, 'src', 'prompts');
+    const promptsDest = path.join(targetDir, agent.promptsDir);
 
     if (fs.existsSync(promptsSrc)) {
       copyWithPathReplacement(
         promptsSrc,
-        claudeCommandsDest,
-        claudePrefix,
+        promptsDest,
+        pathPrefix,
         dryRun,
-        true,
+        agent.transform,
       );
+      console.log(`    ${green}✓${reset} Installed prompts/commands`);
+    }
+
+    // sheaf/*
+    const sheafDest = path.join(targetDir, 'sheaf');
+    if (!dryRun) {
+      fs.mkdirSync(sheafDest, { recursive: true });
+    } else {
+      console.log(`    ${dim}[dry-run] mkdir -p ${sheafDest}${reset}`);
     }
 
     const srcDirs = ['templates', 'workflows', 'references', 'skills', 'rules'];
     for (const dir of srcDirs) {
       const dirSrc = path.join(srcRoot, 'src', dir);
-      const dirDest = path.join(claudeSheafDest, dir);
+      const dirDest = path.join(sheafDest, dir);
       if (fs.existsSync(dirSrc)) {
-        copyWithPathReplacement(dirSrc, dirDest, claudePrefix, dryRun, false);
+        copyWithPathReplacement(
+          dirSrc,
+          dirDest,
+          pathPrefix,
+          dryRun,
+          agent.transform,
+        );
       }
     }
-    console.log(
-      `  ${green}✓${reset} Installed Claude files in ${cyan}${claudeLabel}${reset} (pointing to ${claudePrefix})`,
-    );
+    console.log(`    ${green}✓${reset} Installed sheaf artifacts\n`);
   }
 
-  console.log(`
-  ${green}${dryRun ? 'Dry-run complete!' : 'Done!'}${reset}
-`);
+  console.log(`  ${green}${dryRun ? 'Dry-run complete!' : 'Done!'}${reset}\n`);
 }
 
-let toTarget = parseToArg(args);
+const options = parseArgs(rawArgs);
 
-if (!toTarget) {
+if (hasHelp) {
   console.log(banner);
-  toTarget = await promptForTarget();
+  console.log(`  ${yellow}Usage:${reset} npx viespejo/sheaf [options]
+
+  ${yellow}Options:${reset}
+    ${cyan}-s, --scope <local|global>${reset}   Path strategy (default: local)
+    ${cyan}-t, --install-dir <path>${reset}     Base installation directory
+    ${cyan}--codecompanion${reset}              ${AGENTS.codecompanion.description}
+    ${cyan}--claude${reset}                     ${AGENTS.claude.description}
+    ${cyan}-d, --dry-run${reset}              Show what would be installed
+    ${cyan}-h, --help${reset}                 Show this help message
+
+  ${yellow}Note:${reset}
+    If no agents are specified, the installer runs in interactive mode.
+`);
+  process.exit(0);
 }
 
-const target = resolveInstallTarget(toTarget);
+const config = await resolveConfig(options);
 
-console.log(banner);
-console.log(
-  `  ${green}Target:${reset} ${target.mode} -> ${cyan}${target.dir}${reset}${hasDryRun ? ` ${dim}(dry-run)${reset}` : ''}`,
-);
+if (hasDryRun) {
+  console.log(banner);
+  console.log(`  ${yellow}DRY RUN MODE - No files will be written${reset}\n`);
+}
 
-install(target, hasDryRun);
+install(config, hasDryRun);
 process.exit(0);

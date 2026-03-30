@@ -20,7 +20,7 @@ Next phase: UNIFY (after execution completes)
 </required_reading>
 
 <references>
-`~/.codecompanion/sheaf/references/loop-phases.md`
+`{{AGENT_DIR}}/sheaf/references/loop-phases.md`
 </references>
 
 <process>

@@ -80,7 +80,7 @@ Load heavy docs (`docs/prd.md`, `docs/architecture.md`) only on ambiguity/confli
 
 Use SHEAF paths consistently:
 - project state at `.sheaf/*`
-- shared framework docs at `~/.codecompanion/sheaf/*`
+- shared framework docs at `{{AGENT_DIR}}/sheaf/*`
 
 ## Key Principle
 

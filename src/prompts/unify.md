@@ -17,10 +17,10 @@ Reconcile an executed PLAN.md against actual results, create SUMMARY.md, update 
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/unify-phase.md`
-`~/.codecompanion/sheaf/workflows/transition-phase.md`
-`~/.codecompanion/sheaf/templates/SUMMARY.md`
-`~/.codecompanion/sheaf/references/loop-phases.md`
+`{{AGENT_DIR}}/sheaf/workflows/unify-phase.md`
+`{{AGENT_DIR}}/sheaf/workflows/transition-phase.md`
+`{{AGENT_DIR}}/sheaf/templates/SUMMARY.md`
+`{{AGENT_DIR}}/sheaf/references/loop-phases.md`
 </execution_context>
 
 <context>
@@ -40,7 +40,7 @@ Plan path: $ARGUMENTS
 </step>
 
 <step name="reconcile">
-Follow workflow: ~/.codecompanion/sheaf/workflows/unify-phase.md
+Follow workflow: {{AGENT_DIR}}/sheaf/workflows/unify-phase.md
 
 Reconcile plan vs actual execution:
 - Task outcomes (agent_applied / manual / skipped / stopped)

@@ -20,9 +20,9 @@ This is planning-first: interview, challenge, and agreement before writing files
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/plan-phase.md`
-`~/.codecompanion/sheaf/templates/PLAN.md`
-`~/.codecompanion/sheaf/references/plan-format.md`
+`{{AGENT_DIR}}/sheaf/workflows/plan-phase.md`
+`{{AGENT_DIR}}/sheaf/templates/PLAN.md`
+`{{AGENT_DIR}}/sheaf/references/plan-format.md`
 </execution_context>
 
 <context>
@@ -39,7 +39,7 @@ PLANNING.md (if present)
 </context>
 
 <process>
-**Follow workflow: ~/.codecompanion/sheaf/workflows/plan-phase.md**
+**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/plan-phase.md**
 
 Planning mode rules:
 

@@ -20,10 +20,10 @@ Optional docs may be added by the user for extra context.
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/init-project.md`
-`~/.codecompanion/sheaf/templates/PROJECT.md`
-`~/.codecompanion/sheaf/templates/STATE.md`
-`~/.codecompanion/sheaf/templates/ROADMAP.md`
+`{{AGENT_DIR}}/sheaf/workflows/init-project.md`
+`{{AGENT_DIR}}/sheaf/templates/PROJECT.md`
+`{{AGENT_DIR}}/sheaf/templates/STATE.md`
+`{{AGENT_DIR}}/sheaf/templates/ROADMAP.md`
 </execution_context>
 
 <context>
@@ -31,7 +31,7 @@ Current directory state and required docs availability.
 </context>
 
 <process>
-**Follow workflow: ~/.codecompanion/sheaf/workflows/init-project.md**
+**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/init-project.md**
 
 The workflow is personal and doc-first:
 

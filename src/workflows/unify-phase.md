@@ -26,9 +26,9 @@ Next phase: PLAN
 </optional_reading>
 
 <references>
-~/.codecompanion/sheaf/templates/SUMMARY.md
-~/.codecompanion/sheaf/references/loop-phases.md
-~/.codecompanion/sheaf/workflows/transition-phase.md (only when last plan in phase)
+{{AGENT_DIR}}/sheaf/templates/SUMMARY.md
+{{AGENT_DIR}}/sheaf/references/loop-phases.md
+{{AGENT_DIR}}/sheaf/workflows/transition-phase.md (only when last plan in phase)
 </references>
 
 <process>
@@ -108,7 +108,7 @@ Update `.sheaf/STATE.md`:
 <step name="check_phase_completion">
 1. Count `*-PLAN.md` and `*-SUMMARY.md` files in current phase directory
 2. If all plans have summaries:
-   - Run transition workflow: `~/.codecompanion/sheaf/workflows/transition-phase.md`
+   - Run transition workflow: `{{AGENT_DIR}}/sheaf/workflows/transition-phase.md`
 3. If phase still has pending plans:
    - Keep phase in progress
    - Do not run transition

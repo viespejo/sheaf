@@ -21,18 +21,18 @@ Support continuation of previous sessions, guide technique selection, generate a
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/brainstorm-session.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/workflow.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/template.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/brain-methods.csv`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-01-session-setup.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
-`~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
+`{{AGENT_DIR}}/sheaf/workflows/brainstorm-session.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/template.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01-session-setup.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
 </execution_context>
 
 <context>
@@ -40,7 +40,7 @@ ARGUMENTS: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: ~/.codecompanion/sheaf/workflows/brainstorm-session.md**
+**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/brainstorm-session.md**
 
 This command is a SHEAF wrapper around BMAD brainstorming.
 

@@ -20,9 +20,9 @@ Use this for a mid-session checkpoint, after resume, or whenever the next step i
 </objective>
 
 <execution_context>
-`~/.codecompanion/sheaf/workflows/progress-project.md`
-`~/.codecompanion/sheaf/references/loop-phases.md`
-`~/.codecompanion/sheaf/references/context-management.md`
+`{{AGENT_DIR}}/sheaf/workflows/progress-project.md`
+`{{AGENT_DIR}}/sheaf/references/loop-phases.md`
+`{{AGENT_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
@@ -33,7 +33,7 @@ Optional user context: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: ~/.codecompanion/sheaf/workflows/progress-project.md**
+**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/progress-project.md**
 
 Core flow:
 1. Read STATE and ROADMAP

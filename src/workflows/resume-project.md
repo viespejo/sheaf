@@ -34,8 +34,8 @@ Do not present multiple routing options.
 </optional_reading>
 
 <references>
-~/.codecompanion/sheaf/references/loop-phases.md
-~/.codecompanion/sheaf/references/context-management.md
+{{AGENT_DIR}}/sheaf/references/loop-phases.md
+{{AGENT_DIR}}/sheaf/references/context-management.md
 </references>
 
 <process>

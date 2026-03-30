@@ -8,26 +8,29 @@ A compact daily guide to run SHEAF with consistency and momentum.
 
 ## Install SHEAF (once on your machine/workspace)
 
+Run the interactive installer:
+
 ```bash
-npx viespejo/sheaf --to global
+npx viespejo/sheaf
 ```
 
-or local to current repository:
+Or use flags for a specific setup:
 
 ```bash
-npx viespejo/sheaf --to local
-```
+# CodeCompanion (Neovim)
+npx viespejo/sheaf --codecompanion
 
-(Optional) With Claude Code support:
+# Claude Code
+npx viespejo/sheaf --claude
 
-```bash
-npx viespejo/sheaf --to local --claude
+# Custom target
+npx viespejo/sheaf --codecompanion --scope global --install-dir ~/.ai
 ```
 
 Preview install without writing files:
 
 ```bash
-npx viespejo/sheaf --to local --dry-run
+npx viespejo/sheaf --codecompanion --dry-run
 ```
 
 ## 1) First-time setup (once per project)

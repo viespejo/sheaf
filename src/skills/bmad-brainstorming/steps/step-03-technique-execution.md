@@ -300,7 +300,7 @@ After final technique element:
 
 - **Append the technique execution content to `{brainstorming_session_output_file}`**
 - **Update frontmatter:** `stepsCompleted: [1, 2, 3]`
-- **Load:** `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
+- **Load:** `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
 
 #### If 'K', 'T', 'A', or 'B' (Continue Exploring):
 
@@ -396,6 +396,6 @@ When user selects 'C', append the content directly to `{brainstorming_session_ou
 
 ## NEXT STEP:
 
-After technique completion and user confirmation, load `~/.codecompanion/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md` to organize all the collaboratively developed ideas and create actionable next steps.
+After technique completion and user confirmation, load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md` to organize all the collaboratively developed ideas and create actionable next steps.
 
 Remember: This is creative coaching, not technique delivery! The user's creative energy is your guide, not the technique structure.
