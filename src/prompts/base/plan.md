@@ -10,9 +10,9 @@ This is planning-first: interview, challenge, and agreement before writing files
 </objective>
 
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/plan-phase.md`
-`{{AGENT_DIR}}/sheaf/templates/PLAN.md`
-`{{AGENT_DIR}}/sheaf/references/plan-format.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md`
+`{{RUNTIME_DIR}}/sheaf/templates/PLAN.md`
+`{{RUNTIME_DIR}}/sheaf/references/plan-format.md`
 </execution_context>
 
 <context>
@@ -29,7 +29,7 @@ PLANNING.md (if present)
 </context>
 
 <process>
-**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/plan-phase.md**
+**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md**
 
 Planning mode rules:
 

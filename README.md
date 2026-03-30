@@ -30,23 +30,33 @@ npx viespejo/sheaf
 ### Recommended commands
 
 Install for CodeCompanion (Neovim):
+
 ```bash
 npx viespejo/sheaf --codecompanion
 ```
 
 Install for Claude Code:
+
 ```bash
 npx viespejo/sheaf --claude
 ```
 
+Install for Gemini CLI:
+
+```bash
+npx viespejo/sheaf --gemini
+```
+
 Preview without writing files:
+
 ```bash
 npx viespejo/sheaf --codecompanion --dry-run
 ```
 
-Custom installation (Both agents, global paths, custom directory):
+Custom installation (multiple runtimes, global paths, custom directory):
+
 ```bash
-npx viespejo/sheaf --codecompanion --claude --scope global --install-dir ~/.ai
+npx viespejo/sheaf --codecompanion --claude --gemini --scope global --install-dir ~/.ai
 ```
 
 ### Installation Parameters
@@ -55,12 +65,14 @@ npx viespejo/sheaf --codecompanion --claude --scope global --install-dir ~/.ai
   - `local` (default): References are rewritten relative to the agent's own directory (e.g., `./.codecompanion/`).
   - `global`: References are rewritten as absolute paths to the installation target.
 - **Install Directory** (`-t, --install-dir`): The base directory where agent folders will be created.
-- **Agents**: Use `--codecompanion` and/or `--claude` to select which artifacts to install.
+- **Runtimes**: Use any combination of `--codecompanion`, `--claude`, and `--gemini` to select which artifacts to install.
 
 ### What gets installed
 
-Each selected agent receives its own directory (`.codecompanion/` or `.claude/`) containing:
-- `prompts/sheaf/` (or `commands/sheaf/` for Claude)
+Each selected runtime receives its own directory (`.codecompanion/`, `.claude/`, or `.gemini/`) containing:
+
+- `prompts/sheaf/` (CodeCompanion) or `commands/sheaf/` (Claude/Gemini)
+
 - `sheaf/templates/`
 - `sheaf/workflows/`
 - `sheaf/references/`
@@ -69,16 +81,17 @@ Each selected agent receives its own directory (`.codecompanion/` or `.claude/`)
 
 ### Path rewriting and Adaptation behavior
 
-During install, markdown references using the `{{AGENT_DIR}}` placeholder are rewritten automatically based on the chosen **Scope**.
+During install, markdown references using the `{{RUNTIME_DIR}}` placeholder are rewritten automatically based on the chosen **Scope**.
 
-When installing for Claude Code, the installer additionally:
-- Strips tool-specific boilerplate (like `## user` sections).
-- Adapts frontmatter for Claude Code compatibility (e.g., `disable-model-invocation: true`).
+Runtime prompt behavior:
+
+- CodeCompanion and Claude receive markdown prompt outputs.
+- Gemini receives TOML command outputs generated from composed markdown prompts.
 
 ### Important notes
 
 - Installation is copy-based; existing files at the target can be overwritten.
-- If no agent flags are provided, the installer runs in interactive mode.
+- If no runtime flags are provided, the installer runs in interactive mode.
 
 ---
 

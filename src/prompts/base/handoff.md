@@ -10,8 +10,8 @@ Use this at end of session, before context break, or when continuity quality mat
 </objective>
 
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/handoff-project.md`
-`{{AGENT_DIR}}/sheaf/references/context-management.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md`
+`{{RUNTIME_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
@@ -22,7 +22,7 @@ Session context (primary source)
 </context>
 
 <process>
-**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/handoff-project.md**
+**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md**
 
 Core flow:
 1. Load current state snapshot

@@ -8,8 +8,8 @@ Execute an approved PLAN.md file by presenting per-task previews and requiring a
 </objective>
 
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/apply-phase.md`
-`{{AGENT_DIR}}/sheaf/references/loop-phases.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md`
+`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
 </execution_context>
 
 <context>
@@ -29,7 +29,7 @@ Plan path: $ARGUMENTS
 </step>
 
 <step name="execute">
-Follow workflow: {{AGENT_DIR}}/sheaf/workflows/apply-phase.md
+Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md
 
 For each task: SHEAF will show preview fragment(s) and require your choice:
 

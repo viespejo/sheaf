@@ -10,9 +10,9 @@ Use this when starting a new session in an existing `.sheaf` project.
 </objective>
 
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/resume-project.md`
-`{{AGENT_DIR}}/sheaf/references/loop-phases.md`
-`{{AGENT_DIR}}/sheaf/references/context-management.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/resume-project.md`
+`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
+`{{RUNTIME_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
@@ -23,7 +23,7 @@ Optional handoff path: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/resume-project.md**
+**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/resume-project.md**
 
 Core flow:
 1. Verify `.sheaf/` exists

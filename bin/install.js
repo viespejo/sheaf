@@ -6,6 +6,7 @@ import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import * as clack from '@clack/prompts';
 import matter from 'gray-matter';
+import { RUNTIMES } from '../src/runtimes/index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +18,7 @@ const dim = '\x1b[2m';
 const reset = '\x1b[0m';
 
 const BASE_BODY_PLACEHOLDER = '{{BASE_BODY}}';
-const DOCS_DEFAULT_ROOT = '{{AGENT_DIR}}';
+const DOCS_DEFAULT_ROOT = '{{RUNTIME_DIR}}';
 
 // Get version from package.json
 const pkg = JSON.parse(
@@ -36,21 +37,6 @@ ${cyan}  ███████╗██╗  ██╗███████╗ �
   ${pkg.tagline}
 `;
 
-const AGENTS = {
-  codecompanion: {
-    name: 'CodeCompanion',
-    dirName: '.codecompanion',
-    promptsDir: 'prompts/sheaf',
-    description: 'Install Sheaf artifacts for CodeCompanion (Neovim)',
-  },
-  claude: {
-    name: 'Claude Code',
-    dirName: '.claude',
-    promptsDir: 'commands/sheaf',
-    description: 'Install Sheaf artifacts for Claude Code',
-  },
-};
-
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
@@ -66,9 +52,10 @@ function parseArgs(argv) {
   const options = {
     scope: null, // local | global
     installDir: null,
-    agents: {
+    runtimes: {
       codecompanion: false,
       claude: false,
+      gemini: false,
     },
   };
 
@@ -104,12 +91,17 @@ function parseArgs(argv) {
     }
 
     if (arg === '--codecompanion') {
-      options.agents.codecompanion = true;
+      options.runtimes.codecompanion = true;
       continue;
     }
 
     if (arg === '--claude') {
-      options.agents.claude = true;
+      options.runtimes.claude = true;
+      continue;
+    }
+
+    if (arg === '--gemini') {
+      options.runtimes.gemini = true;
       continue;
     }
   }
@@ -166,8 +158,14 @@ function composePrompt(baseDoc, targetDoc, targetPath) {
     );
   }
 
-  const mergedFrontmatter = mergeFrontmatter(baseDoc.frontmatter, targetDoc.frontmatter);
-  const mergedBody = targetDoc.body.replace(BASE_BODY_PLACEHOLDER, baseDoc.body);
+  const mergedFrontmatter = mergeFrontmatter(
+    baseDoc.frontmatter,
+    targetDoc.frontmatter,
+  );
+  const mergedBody = targetDoc.body.replace(
+    BASE_BODY_PLACEHOLDER,
+    baseDoc.body,
+  );
 
   const rendered = matter.stringify(mergedBody, mergedFrontmatter);
   return rendered.endsWith('\n') ? rendered : `${rendered}\n`;
@@ -204,7 +202,10 @@ function ensureTrailingSlash(value) {
  * Resolves the final configuration, either from flags or interactive prompts.
  */
 async function resolveConfig(options) {
-  const isInteractive = !options.agents.codecompanion && !options.agents.claude;
+  const isInteractive =
+    !options.runtimes.codecompanion &&
+    !options.runtimes.claude &&
+    !options.runtimes.gemini;
 
   if (!isInteractive) {
     const scope = options.scope || 'local';
@@ -217,25 +218,25 @@ async function resolveConfig(options) {
     return {
       scope,
       installDir,
-      agents: options.agents,
+      runtimes: options.runtimes,
     };
   }
 
   // Clack interactive flow
   clack.intro(banner);
 
-  const selectedAgents = await clack.multiselect({
-    message: 'Which agents do you want to install?',
-    options: Object.entries(AGENTS).map(([id, agent]) => ({
+  const selectedRuntimes = await clack.multiselect({
+    message: 'Which runtimes do you want to install?',
+    options: Object.entries(RUNTIMES).map(([id, runtime]) => ({
       value: id,
-      label: agent.name,
-      hint: agent.description,
+      label: runtime.name,
+      hint: runtime.description,
     })),
     initialValues: ['codecompanion'],
   });
 
-  if (clack.isCancel(selectedAgents) || selectedAgents.length === 0) {
-    clack.cancel('Installation cancelled. No agents selected.');
+  if (clack.isCancel(selectedRuntimes) || selectedRuntimes.length === 0) {
+    clack.cancel('Installation cancelled. No runtimes selected.');
     process.exit(0);
   }
 
@@ -285,9 +286,10 @@ async function resolveConfig(options) {
   return {
     scope,
     installDir,
-    agents: {
-      codecompanion: selectedAgents.includes('codecompanion'),
-      claude: selectedAgents.includes('claude'),
+    runtimes: {
+      codecompanion: selectedRuntimes.includes('codecompanion'),
+      claude: selectedRuntimes.includes('claude'),
+      gemini: selectedRuntimes.includes('gemini'),
     },
   };
 }
@@ -314,7 +316,10 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
     }
 
     if (entry.name.endsWith('.md')) {
-      const content = replaceAgentDirToken(fs.readFileSync(srcPath, 'utf8'), pathPrefix);
+      const content = replaceAgentDirToken(
+        fs.readFileSync(srcPath, 'utf8'),
+        pathPrefix,
+      );
 
       if (!dryRun) {
         fs.writeFileSync(destPath, content);
@@ -334,9 +339,16 @@ function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
   }
 }
 
-function buildTargetPrompts({ srcRoot, targetId, destDir, pathPrefix, dryRun }) {
+function buildTargetPrompts({
+  srcRoot,
+  runtimeId,
+  runtime,
+  destDir,
+  pathPrefix,
+  dryRun,
+}) {
   const baseDir = path.join(srcRoot, 'src', 'prompts', 'base');
-  const targetDir = path.join(srcRoot, 'src', 'prompts', 'targets', targetId);
+  const targetDir = path.join(srcRoot, 'src', 'prompts', 'targets', runtimeId);
 
   if (!fs.existsSync(baseDir) || !fs.statSync(baseDir).isDirectory()) {
     throw new Error(`Base prompts directory not found: ${baseDir}`);
@@ -365,11 +377,12 @@ function buildTargetPrompts({ srcRoot, targetId, destDir, pathPrefix, dryRun }) 
   for (const fileName of baseFiles) {
     const basePath = path.join(baseDir, fileName);
     const targetPath = path.join(targetDir, fileName);
-    const outputPath = path.join(destDir, fileName);
+    const outputFileName = `${path.basename(fileName, '.md')}${runtime.promptOutputExt}`;
+    const outputPath = path.join(destDir, outputFileName);
 
     if (!fs.existsSync(targetPath)) {
       throw new Error(
-        `Target prompt not found for ${targetId}: ${path.join('src', 'prompts', 'targets', targetId, fileName)}`,
+        `Target prompt not found for ${runtimeId}: ${path.join('src', 'prompts', 'targets', runtimeId, fileName)}`,
       );
     }
 
@@ -377,7 +390,13 @@ function buildTargetPrompts({ srcRoot, targetId, destDir, pathPrefix, dryRun }) 
     const targetDoc = parsePromptFile(targetPath);
 
     const merged = composePrompt(baseDoc, targetDoc, targetPath);
-    const finalContent = replaceAgentDirToken(merged, pathPrefix);
+    const rewritten = replaceAgentDirToken(merged, pathPrefix);
+    const finalContent = runtime.transformPrompt({
+      composedMarkdown: rewritten,
+      promptName: path.basename(fileName, '.md'),
+      runtimeId,
+      outputFileName,
+    });
 
     if (!dryRun) {
       fs.writeFileSync(outputPath, finalContent);
@@ -389,31 +408,33 @@ function buildTargetPrompts({ srcRoot, targetId, destDir, pathPrefix, dryRun }) 
 
 function install(config, dryRun) {
   const srcRoot = path.join(__dirname, '..');
-  const { scope, installDir, agents } = config;
+  const { scope, installDir, runtimes } = config;
 
-  console.log(`\n  ${cyan}Installing agents...${reset}\n`);
+  console.log(`\n  ${cyan}Installing runtimes...${reset}\n`);
 
-  for (const [id, agent] of Object.entries(AGENTS)) {
-    if (!agents[id]) continue;
+  for (const [id, runtime] of Object.entries(RUNTIMES)) {
+    if (!runtimes[id]) continue;
 
-    const targetDir = path.join(installDir, agent.dirName);
+    const targetDir = path.join(installDir, runtime.dirName);
     const pathPrefix =
       scope === 'local'
-        ? `./${agent.dirName}/`
+        ? `./${runtime.dirName}/`
         : ensureTrailingSlash(targetDir);
 
     console.log(
-      `  Target: ${green}${agent.name}${reset} -> ${cyan}${targetDir}${reset} (${scope})`,
+      `  Target: ${green}${runtime.name}${reset} -> ${cyan}${targetDir}${reset} (${scope})`,
     );
 
-    const promptsDest = path.join(targetDir, agent.promptsDir);
+    const promptsDest = path.join(targetDir, runtime.promptsDir);
     buildTargetPrompts({
       srcRoot,
-      targetId: id,
+      runtimeId: id,
+      runtime: runtime,
       destDir: promptsDest,
       pathPrefix,
       dryRun,
     });
+
     console.log(`    ${green}✓${reset} Installed prompts/commands`);
 
     // sheaf/*
@@ -447,13 +468,15 @@ if (hasHelp) {
   ${yellow}Options:${reset}
     ${cyan}-s, --scope <local|global>${reset}   Path strategy (default: local)
     ${cyan}-t, --install-dir <path>${reset}     Base installation directory
-    ${cyan}--codecompanion${reset}              ${AGENTS.codecompanion.description}
-    ${cyan}--claude${reset}                     ${AGENTS.claude.description}
+    ${cyan}--codecompanion${reset}              ${RUNTIMES.codecompanion.description}
+    ${cyan}--claude${reset}                     ${RUNTIMES.claude.description}
+    ${cyan}--gemini${reset}                     ${RUNTIMES.gemini.description}
     ${cyan}-d, --dry-run${reset}                Show what would be installed
+
     ${cyan}-h, --help${reset}                   Show this help message
 
   ${yellow}Note:${reset}
-    If no agents are specified, the installer runs in interactive mode.
+    If no runtimes are specified, the installer runs in interactive mode.
 `);
   process.exit(0);
 }
@@ -472,4 +495,3 @@ try {
   console.error(`\n  ${yellow}Installation failed:${reset} ${error.message}`);
   process.exit(1);
 }
-

@@ -15,21 +15,21 @@ Use before planning or as standalone ideation.
 </loop_context>
 
 <required_reading>
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/template.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01-session-setup.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
-`{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/template.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01-session-setup.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-01b-continue.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02a-user-selected.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02b-ai-recommended.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02c-random-selection.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-02d-progressive-flow.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-04-idea-organization.md`
 </required_reading>
 
 <references>
-{{AGENT_DIR}}/sheaf/references/context-management.md
+{{RUNTIME_DIR}}/sheaf/references/context-management.md
 </references>
 
 <process>
@@ -47,7 +47,7 @@ Use before planning or as standalone ideation.
 </step>
 
 <step name="delegate_to_bmad" priority="required">
-1. Execute `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md` exactly.
+1. Execute `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md` exactly.
 2. Follow BMAD step files and branching exactly as authored.
 3. Use BMAD template and CSV exactly as authored.
 4. Preserve BMAD halt points and continuation behavior.

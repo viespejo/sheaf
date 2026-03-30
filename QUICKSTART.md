@@ -23,8 +23,12 @@ npx viespejo/sheaf --codecompanion
 # Claude Code
 npx viespejo/sheaf --claude
 
+# Gemini CLI
+npx viespejo/sheaf --gemini
+
 # Custom target
-npx viespejo/sheaf --codecompanion --scope global --install-dir ~/.ai
+npx viespejo/sheaf --codecompanion --claude --gemini --scope global --install-dir ~/.ai
+
 ```
 
 Preview install without writing files:

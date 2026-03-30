@@ -66,7 +66,7 @@ Explain the value of systematic creative progression:
 
 **Load CSV and parse:**
 
-- Read `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+- Read `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
 - Parse: category, technique_name, description, facilitation_prompts, best_for, energy_level, typical_duration
 - Map techniques to each phase of the creative journey
 
@@ -232,7 +232,7 @@ stepsCompleted: [1, 2]
 ```
 
 **Route to execution:**
-Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
 
 ## SUCCESS METRICS:
 
@@ -261,6 +261,6 @@ Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-exec
 
 ## NEXT STEP:
 
-After user confirmation, load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the progressive technique flow with clear phase transitions and systematic development.
+After user confirmation, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the progressive technique flow with clear phase transitions and systematic development.
 
 Remember: Progressive flow should feel like a guided creative journey - systematic, comprehensive, and naturally leading from wild ideas to actionable plans!

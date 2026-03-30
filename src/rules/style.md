@@ -57,7 +57,7 @@ Avoid generic containers like `<section>` or `<content>`.
 
 Use SHEAF path conventions:
 - project state: `.sheaf/*`
-- installed framework docs: `{{AGENT_DIR}}/sheaf/*`
+- installed framework docs: `{{RUNTIME_DIR}}/sheaf/*`
 
 ## Loop Terminology
 

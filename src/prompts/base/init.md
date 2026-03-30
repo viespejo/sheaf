@@ -11,10 +11,10 @@ Optional docs may be added by the user for extra context.
 </objective>
 
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/init-project.md`
-`{{AGENT_DIR}}/sheaf/templates/PROJECT.md`
-`{{AGENT_DIR}}/sheaf/templates/STATE.md`
-`{{AGENT_DIR}}/sheaf/templates/ROADMAP.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/init-project.md`
+`{{RUNTIME_DIR}}/sheaf/templates/PROJECT.md`
+`{{RUNTIME_DIR}}/sheaf/templates/STATE.md`
+`{{RUNTIME_DIR}}/sheaf/templates/ROADMAP.md`
 </execution_context>
 
 <context>
@@ -22,7 +22,7 @@ Current directory state and required docs availability.
 </context>
 
 <process>
-**Follow workflow: {{AGENT_DIR}}/sheaf/workflows/init-project.md**
+**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/init-project.md**
 
 The workflow is personal and doc-first:
 

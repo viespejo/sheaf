@@ -48,8 +48,8 @@ Example:
 
 ```xml
 <references>
-{{AGENT_DIR}}/sheaf/references/loop-phases.md
-{{AGENT_DIR}}/sheaf/references/context-management.md
+{{RUNTIME_DIR}}/sheaf/references/loop-phases.md
+{{RUNTIME_DIR}}/sheaf/references/context-management.md
 </references>
 ```
 

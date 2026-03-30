@@ -32,8 +32,8 @@ Read-only for loop state. This workflow documents continuity and does not advanc
 </optional_reading>
 
 <references>
-{{AGENT_DIR}}/sheaf/references/context-management.md
-{{AGENT_DIR}}/sheaf/references/loop-phases.md
+{{RUNTIME_DIR}}/sheaf/references/context-management.md
+{{RUNTIME_DIR}}/sheaf/references/loop-phases.md
 </references>
 
 <process>

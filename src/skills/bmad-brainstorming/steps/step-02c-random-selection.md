@@ -47,7 +47,7 @@ Create anticipation for serendipitous technique discovery:
 
 **Load CSV and parse:**
 
-- Read `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+- Read `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
 - Parse: category, technique_name, description, facilitation_prompts, best_for, energy_level, typical_duration
 - Prepare for intelligent random selection
 
@@ -177,7 +177,7 @@ stepsCompleted: [1, 2]
 ```
 
 **Route to execution:**
-Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
 
 ## SUCCESS METRICS:
 
@@ -206,6 +206,6 @@ Load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-exec
 
 ## NEXT STEP:
 
-After user confirms, load `{{AGENT_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the randomly selected brainstorming techniques with maximum creative energy.
+After user confirms, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the randomly selected brainstorming techniques with maximum creative energy.
 
 Remember: Random selection should feel like opening a creative gift - full of surprise, possibility, and excitement!

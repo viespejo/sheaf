@@ -70,9 +70,9 @@ Use SHEAF paths and loop terms.
 
 ```markdown
 <execution_context>
-`{{AGENT_DIR}}/sheaf/workflows/plan-phase.md`
-`{{AGENT_DIR}}/sheaf/templates/PLAN.md`
-`{{AGENT_DIR}}/sheaf/references/plan-format.md`
+`{{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md`
+`{{RUNTIME_DIR}}/sheaf/templates/PLAN.md`
+`{{RUNTIME_DIR}}/sheaf/references/plan-format.md`
 </execution_context>
 
 <context>
