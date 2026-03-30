@@ -12,7 +12,8 @@
     "src/references",
     "src/workflows",
     "src/skills",
-    "src/rules"
+    "src/rules",
+    "src/runtimes"
   ],
   "keywords": [
     "ai",
