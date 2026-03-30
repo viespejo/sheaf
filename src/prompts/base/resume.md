@@ -1,16 +1,7 @@
 ---
 name: sheaf:resume
 description: Restore SHEAF context from STATE.md and handoff, then continue with one next action
-interaction: chat
-opts:
-  alias: sheaf_resume
-  auto_submit: false
-  is_slash_cmd: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Restore SHEAF context after a session break, detect active handoff context, identify current loop position, and suggest exactly ONE next action.

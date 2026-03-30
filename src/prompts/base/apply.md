@@ -1,16 +1,7 @@
 ---
 name: sheaf:apply
 description: Execute an approved PLAN
-interaction: chat
-opts:
-  alias: sheaf_apply
-  auto_submit: false
-  is_slash_cmd: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Execute an approved PLAN.md file by presenting per-task previews and requiring a per-task decision from the user.

@@ -5,6 +5,7 @@ import path from 'node:path';
 import os from 'node:os';
 import { fileURLToPath } from 'node:url';
 import * as clack from '@clack/prompts';
+import matter from 'gray-matter';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -14,6 +15,9 @@ const green = '\x1b[32m';
 const yellow = '\x1b[33m';
 const dim = '\x1b[2m';
 const reset = '\x1b[0m';
+
+const BASE_BODY_PLACEHOLDER = '{{BASE_BODY}}';
+const DOCS_DEFAULT_ROOT = '{{AGENT_DIR}}';
 
 // Get version from package.json
 const pkg = JSON.parse(
@@ -38,45 +42,20 @@ const AGENTS = {
     dirName: '.codecompanion',
     promptsDir: 'prompts/sheaf',
     description: 'Install Sheaf artifacts for CodeCompanion (Neovim)',
-    transform: (content) => content,
   },
   claude: {
     name: 'Claude Code',
     dirName: '.claude',
     promptsDir: 'commands/sheaf',
     description: 'Install Sheaf artifacts for Claude Code',
-    transform: (content, fileName, srcDir) => {
-      if (!srcDir.endsWith('prompts')) return content;
-
-      const nameMatch = content.match(/name:\s*(.+)/);
-      const descMatch = content.match(/description:\s*(.+)/);
-      const name = nameMatch ? nameMatch[1].trim() : fileName.replace('.md', '');
-      const desc = descMatch ? descMatch[1].trim() : '';
-
-      const newFrontmatter = `---\nname: ${name}\ndescription: ${desc}\ndisable-model-invocation: true\n---`;
-
-      return `${newFrontmatter}\n\n${content
-        .replace(/^---[\s\S]*?---\n*/, '')
-        .replace(
-          /## user[\s\S]*?(?=<objective>|<process>|<execution_context>|<context>)/i,
-          '',
-        )
-        .trim()}\n`;
-    },
   },
 };
-
-const DOCS_DEFAULT_ROOT = '{{AGENT_DIR}}';
 
 function escapeRegExp(value) {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-// Match placeholder used in markdown docs/templates
-const docsDefaultRootRegex = new RegExp(
-  `${escapeRegExp(DOCS_DEFAULT_ROOT)}`,
-  'g',
-);
+const docsDefaultRootRegex = new RegExp(escapeRegExp(DOCS_DEFAULT_ROOT), 'g');
 
 // Parse args
 const rawArgs = process.argv.slice(2);
@@ -136,6 +115,69 @@ function parseArgs(argv) {
   }
 
   return options;
+}
+
+function isPlainObject(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function mergeFrontmatter(baseFrontmatter, targetFrontmatter) {
+  const merged = { ...baseFrontmatter };
+
+  for (const [key, targetValue] of Object.entries(targetFrontmatter)) {
+    const baseValue = merged[key];
+
+    if (isPlainObject(baseValue) && isPlainObject(targetValue)) {
+      merged[key] = { ...baseValue, ...targetValue };
+      continue;
+    }
+
+    merged[key] = targetValue;
+  }
+
+  return merged;
+}
+
+function parsePromptFile(filePath) {
+  try {
+    const raw = fs.readFileSync(filePath, 'utf8');
+    const parsed = matter(raw);
+    return {
+      frontmatter: parsed.data || {},
+      body: parsed.content,
+    };
+  } catch (error) {
+    throw new Error(
+      `Invalid prompt frontmatter in ${filePath}: ${error.message}`,
+      { cause: error },
+    );
+  }
+}
+
+function composePrompt(baseDoc, targetDoc, targetPath) {
+  const matches = targetDoc.body.match(
+    new RegExp(escapeRegExp(BASE_BODY_PLACEHOLDER), 'g'),
+  );
+  const count = matches ? matches.length : 0;
+
+  if (count !== 1) {
+    throw new Error(
+      `Target prompt must contain ${BASE_BODY_PLACEHOLDER} exactly once: ${targetPath}`,
+    );
+  }
+
+  const mergedFrontmatter = mergeFrontmatter(baseDoc.frontmatter, targetDoc.frontmatter);
+  const mergedBody = targetDoc.body.replace(BASE_BODY_PLACEHOLDER, baseDoc.body);
+
+  const rendered = matter.stringify(mergedBody, mergedFrontmatter);
+  return rendered.endsWith('\n') ? rendered : `${rendered}\n`;
+}
+
+function replaceAgentDirToken(content, pathPrefix) {
+  const targetRoot = pathPrefix.endsWith('/')
+    ? pathPrefix.slice(0, -1)
+    : pathPrefix;
+  return content.replace(docsDefaultRootRegex, targetRoot);
 }
 
 /**
@@ -253,13 +295,7 @@ async function resolveConfig(options) {
 /**
  * Recursively copy directory, replacing path prefixes inside markdown files.
  */
-function copyWithPathReplacement(
-  srcDir,
-  destDir,
-  pathPrefix,
-  dryRun,
-  transform = (c) => c,
-) {
+function copyWithPathReplacement(srcDir, destDir, pathPrefix, dryRun) {
   if (!dryRun) {
     fs.mkdirSync(destDir, { recursive: true });
   } else {
@@ -273,20 +309,12 @@ function copyWithPathReplacement(
     const destPath = path.join(destDir, entry.name);
 
     if (entry.isDirectory()) {
-      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun, transform);
+      copyWithPathReplacement(srcPath, destPath, pathPrefix, dryRun);
       continue;
     }
 
     if (entry.name.endsWith('.md')) {
-      let content = fs.readFileSync(srcPath, 'utf8');
-
-      // Replace root token; preserve original trailing "/" if present
-      const targetRoot = pathPrefix.endsWith('/')
-        ? pathPrefix.slice(0, -1)
-        : pathPrefix;
-
-      content = content.replace(docsDefaultRootRegex, targetRoot);
-      content = transform(content, entry.name, srcDir);
+      const content = replaceAgentDirToken(fs.readFileSync(srcPath, 'utf8'), pathPrefix);
 
       if (!dryRun) {
         fs.writeFileSync(destPath, content);
@@ -302,6 +330,59 @@ function copyWithPathReplacement(
       fs.copyFileSync(srcPath, destPath);
     } else {
       console.log(`    ${dim}[dry-run] copy ${srcPath} -> ${destPath}${reset}`);
+    }
+  }
+}
+
+function buildTargetPrompts({ srcRoot, targetId, destDir, pathPrefix, dryRun }) {
+  const baseDir = path.join(srcRoot, 'src', 'prompts', 'base');
+  const targetDir = path.join(srcRoot, 'src', 'prompts', 'targets', targetId);
+
+  if (!fs.existsSync(baseDir) || !fs.statSync(baseDir).isDirectory()) {
+    throw new Error(`Base prompts directory not found: ${baseDir}`);
+  }
+
+  if (!fs.existsSync(targetDir) || !fs.statSync(targetDir).isDirectory()) {
+    throw new Error(`Target prompts directory not found: ${targetDir}`);
+  }
+
+  const baseFiles = fs
+    .readdirSync(baseDir, { withFileTypes: true })
+    .filter((entry) => entry.isFile() && entry.name.endsWith('.md'))
+    .map((entry) => entry.name)
+    .sort();
+
+  if (baseFiles.length === 0) {
+    throw new Error(`No base prompt markdown files found in: ${baseDir}`);
+  }
+
+  if (!dryRun) {
+    fs.mkdirSync(destDir, { recursive: true });
+  } else {
+    console.log(`    ${dim}[dry-run] mkdir -p ${destDir}${reset}`);
+  }
+
+  for (const fileName of baseFiles) {
+    const basePath = path.join(baseDir, fileName);
+    const targetPath = path.join(targetDir, fileName);
+    const outputPath = path.join(destDir, fileName);
+
+    if (!fs.existsSync(targetPath)) {
+      throw new Error(
+        `Target prompt not found for ${targetId}: ${path.join('src', 'prompts', 'targets', targetId, fileName)}`,
+      );
+    }
+
+    const baseDoc = parsePromptFile(basePath);
+    const targetDoc = parsePromptFile(targetPath);
+
+    const merged = composePrompt(baseDoc, targetDoc, targetPath);
+    const finalContent = replaceAgentDirToken(merged, pathPrefix);
+
+    if (!dryRun) {
+      fs.writeFileSync(outputPath, finalContent);
+    } else {
+      console.log(`    ${dim}[dry-run] write ${outputPath}${reset}`);
     }
   }
 }
@@ -325,20 +406,15 @@ function install(config, dryRun) {
       `  Target: ${green}${agent.name}${reset} -> ${cyan}${targetDir}${reset} (${scope})`,
     );
 
-    // prompts/sheaf
-    const promptsSrc = path.join(srcRoot, 'src', 'prompts');
     const promptsDest = path.join(targetDir, agent.promptsDir);
-
-    if (fs.existsSync(promptsSrc)) {
-      copyWithPathReplacement(
-        promptsSrc,
-        promptsDest,
-        pathPrefix,
-        dryRun,
-        agent.transform,
-      );
-      console.log(`    ${green}✓${reset} Installed prompts/commands`);
-    }
+    buildTargetPrompts({
+      srcRoot,
+      targetId: id,
+      destDir: promptsDest,
+      pathPrefix,
+      dryRun,
+    });
+    console.log(`    ${green}✓${reset} Installed prompts/commands`);
 
     // sheaf/*
     const sheafDest = path.join(targetDir, 'sheaf');
@@ -353,13 +429,7 @@ function install(config, dryRun) {
       const dirSrc = path.join(srcRoot, 'src', dir);
       const dirDest = path.join(sheafDest, dir);
       if (fs.existsSync(dirSrc)) {
-        copyWithPathReplacement(
-          dirSrc,
-          dirDest,
-          pathPrefix,
-          dryRun,
-          agent.transform,
-        );
+        copyWithPathReplacement(dirSrc, dirDest, pathPrefix, dryRun);
       }
     }
     console.log(`    ${green}✓${reset} Installed sheaf artifacts\n`);
@@ -379,8 +449,8 @@ if (hasHelp) {
     ${cyan}-t, --install-dir <path>${reset}     Base installation directory
     ${cyan}--codecompanion${reset}              ${AGENTS.codecompanion.description}
     ${cyan}--claude${reset}                     ${AGENTS.claude.description}
-    ${cyan}-d, --dry-run${reset}              Show what would be installed
-    ${cyan}-h, --help${reset}                 Show this help message
+    ${cyan}-d, --dry-run${reset}                Show what would be installed
+    ${cyan}-h, --help${reset}                   Show this help message
 
   ${yellow}Note:${reset}
     If no agents are specified, the installer runs in interactive mode.
@@ -388,12 +458,18 @@ if (hasHelp) {
   process.exit(0);
 }
 
-const config = await resolveConfig(options);
+try {
+  const config = await resolveConfig(options);
 
-if (hasDryRun) {
-  console.log(banner);
-  console.log(`  ${yellow}DRY RUN MODE - No files will be written${reset}\n`);
+  if (hasDryRun) {
+    console.log(banner);
+    console.log(`  ${yellow}DRY RUN MODE - No files will be written${reset}\n`);
+  }
+
+  install(config, hasDryRun);
+  process.exit(0);
+} catch (error) {
+  console.error(`\n  ${yellow}Installation failed:${reset} ${error.message}`);
+  process.exit(1);
 }
 
-install(config, hasDryRun);
-process.exit(0);

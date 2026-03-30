@@ -1,17 +1,7 @@
 ---
 name: sheaf:handoff
 description: Generate a comprehensive session handoff document for the next resume
-interaction: chat
-opts:
-  alias: sheaf_handoff
-  auto_submit: false
-  is_slash_cmd: true
-  user_prompt: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Generate a comprehensive handoff document that captures session outcomes, decisions, open gaps, and prioritized next actions.

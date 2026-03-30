@@ -1,17 +1,7 @@
 ---
 name: sheaf:progress
 description: Smart status with deterministic routing to ONE next action
-interaction: chat
-opts:
-  alias: sheaf_progress
-  auto_submit: false
-  is_slash_cmd: true
-  user_prompt: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Show current SHEAF progress and suggest exactly ONE next action.

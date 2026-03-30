@@ -1,17 +1,7 @@
 ---
 name: sheaf:plan
 description: Plan implementation of a selected PRD story (collaborative workflow)
-interaction: chat
-opts:
-  alias: sheaf_plan
-  auto_submit: false
-  is_slash_cmd: true
-  user_prompt: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Create or continue an implementation plan for a selected PRD story.
@@ -66,4 +56,3 @@ Behavior constraints:
 - [ ] Exactly ONE next action shown (`/sheaf:apply`)
 
 </success_criteria>
-

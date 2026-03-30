@@ -1,16 +1,7 @@
 ---
 name: sheaf:unify
 description: Reconcile APPLY results and close the loop
-interaction: chat
-opts:
-  alias: sheaf_unify
-  auto_submit: false
-  is_slash_cmd: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Reconcile an executed PLAN.md against actual results, create SUMMARY.md, update state, and close the PLAN → APPLY → UNIFY loop.

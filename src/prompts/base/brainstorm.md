@@ -1,18 +1,7 @@
 ---
 name: sheaf:brainstorm
 description: Facilitate a BMAD-style brainstorming session and produce actionable outcomes
-interaction: chat
-opts:
-  alias: sheaf_brainstorm
-  auto_submit: false
-  is_slash_cmd: true
-  ignore_system_prompt: true
-  user_prompt: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Facilitate an interactive brainstorming session using BMAD-style ideation techniques.

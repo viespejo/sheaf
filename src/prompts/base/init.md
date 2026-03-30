@@ -1,16 +1,7 @@
 ---
 name: sheaf:init
 description: Initialize SHEAF from project docs (personal workflow)
-interaction: chat
-opts:
-  alias: sheaf_init
-  auto_submit: false
-  is_slash_cmd: true
 ---
-
-## user
-
-@{agentic}
 
 <objective>
 Initialize the `.sheaf/` structure using existing project documents as primary context.
@@ -65,4 +56,3 @@ The workflow is personal and doc-first:
 - [ ] ROADMAP.md initialized for planning
 - [ ] User presented with ONE clear next action
 </success_criteria>
-
