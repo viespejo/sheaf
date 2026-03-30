@@ -19,7 +19,7 @@ It is designed for day-to-day implementation work with one core principle:
 SHEAF is installed with the project installer:
 
 ```bash
-npx sheaf --help
+npx viespejo/sheaf --help
 ```
 
 ### Choose target mode
@@ -32,32 +32,32 @@ npx sheaf --help
 Install globally (default path):
 
 ```bash
-npx sheaf --to global
+npx viespejo/sheaf --to global
 ```
 
 Install locally in current repo:
 
 ```bash
-npx sheaf --to local
+npx viespejo/sheaf --to local
 ```
 
 With Claude Code support (optional):
 
 ```bash
-npx sheaf --to local --claude
+npx viespejo/sheaf --to local --claude
 ```
 
 Preview without writing files:
 
 ```bash
-npx sheaf --to local --dry-run
+npx viespejo/sheaf --to local --dry-run
 ```
 
 Custom paths:
 
 ```bash
-npx sheaf --to global:~/.codecompanion-custom
-npx sheaf --to local:./.ai
+npx viespejo/sheaf --to global:~/.codecompanion-custom
+npx viespejo/sheaf --to local:./.ai
 ```
 
 ### What gets installed

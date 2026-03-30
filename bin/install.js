@@ -212,7 +212,7 @@ function resolveInstallTarget(targetInput) {
 // Help first
 if (hasHelp) {
   console.log(banner);
-  console.log(`  ${yellow}Usage:${reset} npx sheaf [options]
+  console.log(`  ${yellow}Usage:${reset} npx viespejo/sheaf [options]
 
   ${yellow}Options:${reset}
     ${cyan}-t, --to <target>${reset}          Install target:
@@ -232,10 +232,10 @@ if (hasHelp) {
     If ${cyan}--to${reset} is omitted, installer prompts interactively in TTY.
 
   ${yellow}Examples:${reset}
-    npx sheaf --to global
-    npx sheaf --to global:~/${APP_DIRNAME}-custom
-    npx sheaf --to local
-    npx sheaf --to local:./.ai
+    npx viespejo/sheaf --to global
+    npx viespejo/sheaf --to global:~/${APP_DIRNAME}-custom
+    npx viespejo/sheaf --to local
+    npx viespejo/sheaf --to local:./.ai
 `);
   process.exit(0);
 }
@@ -245,7 +245,7 @@ async function promptForTarget() {
     console.error(
       `  ${yellow}Missing --to <target>. Interactive prompt requires a TTY.${reset}`,
     );
-    console.error(`  ${dim}Try: npx sheaf --to local${reset}`);
+    console.error(`  ${dim}Try: npx viespejo/sheaf --to local${reset}`);
     process.exit(1);
   }
 

@@ -9,25 +9,25 @@ A compact daily guide to run SHEAF with consistency and momentum.
 ## Install SHEAF (once on your machine/workspace)
 
 ```bash
-npx sheaf --to global
+npx viespejo/sheaf --to global
 ```
 
 or local to current repository:
 
 ```bash
-npx sheaf --to local
+npx viespejo/sheaf --to local
 ```
 
 (Optional) With Claude Code support:
 
 ```bash
-npx sheaf --to local --claude
+npx viespejo/sheaf --to local --claude
 ```
 
 Preview install without writing files:
 
 ```bash
-npx sheaf --to local --dry-run
+npx viespejo/sheaf --to local --dry-run
 ```
 
 ## 1) First-time setup (once per project)
