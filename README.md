@@ -41,6 +41,12 @@ Install locally in current repo:
 npx sheaf --to local
 ```
 
+With Claude Code support (optional):
+
+```bash
+npx sheaf --to local --claude
+```
+
 Preview without writing files:
 
 ```bash
@@ -63,12 +69,20 @@ npx sheaf --to local:./.ai
 - `src/skills/*` → `<target>/sheaf/skills/`
 - `src/rules/*` → `<target>/sheaf/rules/` (if present)
 
-### Path rewriting behavior
+If `--claude` is used, it also installs adapted commands and files into:
+- `~/.claude/commands/sheaf/` (global) or `./.claude/commands/sheaf/` (local)
+- `~/.claude/sheaf/` (global) or `./.claude/sheaf/` (local)
+
+### Path rewriting and Adaptation behavior
 
 During install, markdown references to `~/.codecompanion` are rewritten automatically:
 
 - to absolute paths in **global** mode
 - to workspace-relative paths in **local** mode
+
+When using `--claude`, the installer additionally:
+- Strips tool-specific boilerplate (like `## user` sections).
+- Adapts frontmatter for Claude Code compatibility (e.g., `disable-model-invocation: true`).
 
 ### Important notes
 

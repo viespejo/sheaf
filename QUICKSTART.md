@@ -18,6 +18,12 @@ or local to current repository:
 npx sheaf --to local
 ```
 
+(Optional) With Claude Code support:
+
+```bash
+npx sheaf --to local --claude
+```
+
 Preview install without writing files:
 
 ```bash
