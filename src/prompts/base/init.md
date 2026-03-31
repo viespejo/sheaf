@@ -12,38 +12,10 @@ Optional docs may be added by the user for extra context.
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/init-project.md`
-`{{RUNTIME_DIR}}/sheaf/templates/PROJECT.md`
-`{{RUNTIME_DIR}}/sheaf/templates/STATE.md`
-`{{RUNTIME_DIR}}/sheaf/templates/ROADMAP.md`
 </execution_context>
 
-<context>
-Current directory state and required docs availability.
-</context>
-
 <process>
-**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/init-project.md**
-
-The workflow is personal and doc-first:
-
-1. Check for existing `.sheaf/` (route to resume/progress if exists)
-2. Validate `docs/prd.md` and `docs/architecture.md`
-3. Auto-include `PLANNING.md` when present
-4. Ask for optional extra context files
-5. Read docs and extract project context
-6. Run Interview Mode when critical information is missing/unclear (one question at a time, with recommendation)
-7. Create `.sheaf/PROJECT.md`, `.sheaf/ROADMAP.md`, `.sheaf/STATE.md`, `.sheaf/sheaf.json`
-8. Display one next action: `/sheaf:plan`
-
-**Behavior rules:**
-
-- Do not run generalized multi-project branching
-- Use documents as source of truth
-- Use Interview Mode for critical ambiguity and resolve decision dependencies
-- Enforce one-question-at-a-time with a clear decision before advancing
-- Include recommended answer for every interview question
-- Explore docs/codebase before asking when possible
-- End with exactly ONE next action
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/init-project.md
 </process>
 
 <success_criteria>

@@ -9,11 +9,6 @@ This INIT is opinionated for a single-user architect workflow and avoids framewo
 - User already has docs/prd.md and docs/architecture.md (plus optional extra context docs)
 </when_to_use>
 
-<loop_context>
-N/A - This is setup only.
-After init, project is ready for first PLAN.
-</loop_context>
-
 <philosophy>
 **Personal and document-first:**
 - Use existing project docs as source of truth
@@ -21,10 +16,6 @@ After init, project is ready for first PLAN.
 - Remove generic framework branches that add friction
 - End with one concrete next action
 </philosophy>
-
-<references>
-@src/templates/sheaf-json.md
-</references>
 
 <process>
 
@@ -321,4 +312,3 @@ Do not propose additional next steps.
 - Ask up to 3 critical questions
 - Use planning placeholders for unresolved sections
 </error_handling>
-
