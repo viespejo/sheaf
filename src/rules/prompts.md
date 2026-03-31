@@ -21,34 +21,17 @@ Use YAML frontmatter compatible with current SHEAF prompts:
 ---
 name: sheaf:command-name
 description: One-line description
-interaction: chat
-opts:
-  alias: sheaf_command_name
-  auto_submit: false
-  is_slash_cmd: true
-  user_prompt: true # optional
-  ignore_system_prompt: true # optional
 ---
 ```
 
 Required fields:
 - `name` with `sheaf:` prefix
 - `description`
-- `interaction`
-- `opts.alias`
-- `opts.auto_submit`
-- `opts.is_slash_cmd`
-
-Optional fields:
-- `opts.user_prompt` when command should require user prompt input flow
-- `opts.ignore_system_prompt` when command should not include default system prompt
 
 ## Body Structure
 
 Prompt body should follow this order:
 
-1. `## user`
-2. `@{agentic}`
 3. `<objective>`
 4. `<execution_context>`
 5. `<context>`
@@ -66,7 +49,7 @@ If logic grows large, move it to `src/workflows/*.md` and reference it.
 
 ## SHEAF Context Conventions
 
-Use SHEAF paths and loop terms.
+Use SHEAF paths.
 
 ```markdown
 <execution_context>

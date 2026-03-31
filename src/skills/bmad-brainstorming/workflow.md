@@ -32,7 +32,6 @@ This uses **micro-file architecture** for disciplined execution:
 
 ### Configuration Resolver
 
-- `output_folder` -> `.sheaf` for brainstorming session
 - `date` as system-generated current datetime
 
 ### Paths
