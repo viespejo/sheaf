@@ -131,11 +131,8 @@ After all tasks attempted:
    [execution summary]
 
    ---
-   Continue to UNIFY?
-
-   [1] Yes, run UNIFY | [2] Pause here
+   Start a new clean session to run UNIFY: /sheaf:unify [plan-path]
    ```
-4. **Accept quick inputs:** "1", "yes", "continue", "go" → run `/sheaf:unify [plan-path]`
 </step>
 
 </process>

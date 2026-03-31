@@ -11,40 +11,14 @@ This is planning-first: interview, challenge, and agreement before writing files
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md`
-`{{RUNTIME_DIR}}/sheaf/templates/PLAN.md`
-`{{RUNTIME_DIR}}/sheaf/references/plan-format.md`
 </execution_context>
 
 <context>
 $STORY: $ARGUMENTS
-
-.sheaf/PROJECT.md
-.sheaf/STATE.md
-.sheaf/ROADMAP.md
-
-Optional on-demand context (only when needed):
-docs/prd.md
-docs/architecture.md
-PLANNING.md (if present)
 </context>
 
 <process>
-**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md**
-
-Planning mode rules:
-
-1. Use INIT outputs as primary source of truth
-2. Select story first, then plan implementation
-3. Run collaborative interview (recommendation, pros/cons, devil's advocate, risks)
-4. Produce chat draft first (no file writes)
-5. Ask explicit approval before creating PLAN.md
-6. Update STATE.md and ROADMAP.md after approval
-7. End with exactly ONE next action
-
-Behavior constraints:
-- Do not re-run full INIT discovery in PLAN
-- Consult `docs/prd.md` / `docs/architecture.md` only when ambiguity or conflicts require it
-- Keep focus on implementation of the selected story (not generic planning branches)
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md
 </process>
 
 <success_criteria>
@@ -54,5 +28,4 @@ Behavior constraints:
 - [ ] PLAN.md created at the correct phase path
 - [ ] STATE.md and ROADMAP.md updated
 - [ ] Exactly ONE next action shown (`/sheaf:apply`)
-
 </success_criteria>

@@ -34,7 +34,7 @@ Next phase: PLAN
 <process>
 
 <step name="validate_preconditions" priority="first">
-1. Confirm PLAN.md exists at the provided path
+1. Confirm PLAN.md exists at the provided path ($PLAN_PATH)
 2. Derive SUMMARY path by replacing `-PLAN.md` with `-SUMMARY.md`
 3. Confirm APPLY context exists (execution log, STATE activity, or user confirmation)
 4. If SUMMARY.md already exists:

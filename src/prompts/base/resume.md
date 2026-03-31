@@ -11,34 +11,14 @@ Use this when starting a new session in an existing `.sheaf` project.
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/resume-project.md`
-`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
-`{{RUNTIME_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
-Optional handoff path: $ARGUMENTS
-
-.sheaf/STATE.md
-.sheaf/PROJECT.md (if present)
+`ARGUMENTS`: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/resume-project.md**
-
-Core flow:
-1. Verify `.sheaf/` exists
-2. Detect handoff files (or use `$ARGUMENTS` if provided)
-3. Read `.sheaf/STATE.md`
-4. Load handoff/resume context (if available)
-5. Reconcile state and handoff information
-6. Determine exactly ONE next action from loop position
-7. Show concise resume report with single routing
-8. After user proceeds, archive consumed handoff
-
-Behavior rules:
-- Do not show multiple action options
-- Prefer `.sheaf/STATE.md` as source of truth when handoff is stale
-- Keep momentum: one deterministic continuation action
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/resume-project.md
 </process>
 
 <success_criteria>

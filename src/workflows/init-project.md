@@ -17,6 +17,10 @@ This INIT is opinionated for a single-user architect workflow and avoids framewo
 - End with one concrete next action
 </philosophy>
 
+<references>
+`{{RUNTIME_DIR}}/sheaf/references/sheaf-json.md`
+</references>
+
 <process>
 
 <step name="check_existing" priority="first">

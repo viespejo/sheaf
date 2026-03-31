@@ -11,32 +11,14 @@ Use this for a mid-session checkpoint, after resume, or whenever the next step i
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/progress-project.md`
-`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
-`{{RUNTIME_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
-Optional user context: $ARGUMENTS
-
-.sheaf/STATE.md
-.sheaf/ROADMAP.md
+`ARGUMENTS`: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/progress-project.md**
-
-Core flow:
-1. Read STATE and ROADMAP
-2. Calculate current milestone/phase/loop progress
-3. Factor optional user context (time constraints, blockers, priorities)
-4. Determine exactly ONE next action
-5. Display concise progress report with deterministic routing
-6. Add context advisory when session is DEEP/CRITICAL
-
-Behavior rules:
-- Never output multiple next-action options
-- Prefer loop-consistent routing over generic suggestions
-- Keep response concise, visual, and actionable
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/progress-project.md
 </process>
 
 <success_criteria>

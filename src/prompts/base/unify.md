@@ -9,52 +9,14 @@ Reconcile an executed PLAN.md against actual results, create SUMMARY.md, update 
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/unify-phase.md`
-`{{RUNTIME_DIR}}/sheaf/workflows/transition-phase.md`
-`{{RUNTIME_DIR}}/sheaf/templates/SUMMARY.md`
-`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
 </execution_context>
 
 <context>
-Plan path: $ARGUMENTS
-
-.sheaf/STATE.md
+`$PLAN_PATH`: $ARGUMENTS
 </context>
 
 <process>
-
-<step name="validate_plan">
-1. Confirm plan file exists at $ARGUMENTS path
-2. Error if not found: "Plan not found: {path}"
-3. Derive SUMMARY path (replace PLAN.md with SUMMARY.md)
-4. If SUMMARY exists: "Loop already closed. SUMMARY: {path}"
-   - Offer: regenerate or exit
-</step>
-
-<step name="reconcile">
-Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/unify-phase.md
-
-Reconcile plan vs actual execution:
-- Task outcomes (agent_applied / manual / skipped / stopped)
-- Acceptance criteria status with evidence
-- Deviations and rationale
-- Deferred issues and follow-ups
-</step>
-
-<step name="close_loop">
-After reconciliation:
-- Create SUMMARY.md next to PLAN.md
-- Update STATE.md loop position to complete
-- Update ROADMAP.md when phase progress/status changes
-- If last plan in phase: run transition workflow
-</step>
-
-<step name="report">
-Report completion:
-- SUMMARY path
-- Loop position closed
-- Concise readiness + next action
-</step>
-
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/unify-phase.md
 </process>
 
 <success_criteria>

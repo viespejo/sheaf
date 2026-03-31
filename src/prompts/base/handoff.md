@@ -11,30 +11,14 @@ Use this at end of session, before context break, or when continuity quality mat
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md`
-`{{RUNTIME_DIR}}/sheaf/references/context-management.md`
 </execution_context>
 
 <context>
-Optional notes: $ARGUMENTS
-
-Session context (primary source)
-.sheaf/STATE.md
+`ARGUMENTS`: $ARGUMENTS
 </context>
 
 <process>
-**Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md**
-
-Core flow:
-1. Load current state snapshot
-2. Extract session signals from conversation and state
-3. Synthesize accomplishments, decisions, gaps, and open questions
-4. Generate `.sheaf/HANDOFF-{date}-{context}.md`
-5. Confirm save path and key counts
-
-Behavior rules:
-- Prefer observed session context over generic placeholders
-- Integrate optional `$ARGUMENTS` notes as override/supplement
-- Keep handoff actionable for `/sheaf:resume`
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md
 </process>
 
 <success_criteria>

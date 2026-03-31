@@ -9,45 +9,14 @@ Execute an approved PLAN.md file by presenting per-task previews and requiring a
 
 <execution_context>
 `{{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md`
-`{{RUNTIME_DIR}}/sheaf/references/loop-phases.md`
 </execution_context>
 
 <context>
 Plan path: $ARGUMENTS
-
-.sheaf/STATE.md
 </context>
 
 <process>
-
-<step name="validate_plan">
-1. Confirm plan file exists at $ARGUMENTS path
-2. Error if not found: "Plan not found: {path}"
-3. Derive SUMMARY path (replace PLAN.md with SUMMARY.md)
-4. If SUMMARY exists: "Plan already executed. SUMMARY: {path}"
-   - Offer: re-execute or exit
-</step>
-
-<step name="execute">
-Follow workflow: {{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md
-
-For each task: SHEAF will show preview fragment(s) and require your choice:
-
-[1] I apply manually — SHEAF waits for "done" (you may also reply "skip" or "stop")
-[2] SHEAF applies now — SHEAF writes changes
-[3] Skip — record deviation
-
-If you choose "stop", APPLY pauses and can be resumed later.
-
-</step>
-
-<step name="complete">
-After tasks complete:
-- Report: "APPLY complete. Run /sheaf:unify to close loop."
-- Show files modified (only those SHEAF wrote)
-- Show SUMMARY path to create
-</step>
-
+Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md
 </process>
 
 <success_criteria>
