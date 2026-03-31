@@ -250,6 +250,36 @@ Generate a comprehensive continuity document for the next session.
 - Includes accomplishments, decisions, gaps, open questions, references, and prioritized next actions.
 - Updates `STATE.md` Session Continuity with handoff pointer.
 
+### `/sheaf:product-brief`
+
+Create or update product briefs through guided or autonomous discovery using the **BMAD Product Brief** skill.
+
+- **Objective**: Guides you from raw ideas to polished executive summaries (1-2 pages) and optionally an LLM distillate for PRD creation.
+- **Modes**:
+  - **Guided** (Default): Conversational discovery with soft gates.
+  - **Yolo**: Fast-track drafting followed by refinement.
+  - **Autonomous**: Headless execution for structured inputs or flags (`--autonomous`).
+- **Features**:
+  - **Contextual Discovery**: Analyzes local artifacts and performs web research via specialized subagents.
+  - **Multi-lens Review**: Uses Skeptic and Opportunity reviewers to stress-test the draft.
+  - **Distillate Generation**: Captures technical details, rejected ideas, and requirements for downstream use.
+
+---
+
+## Maintenance Tools
+
+
+### `bin/fix-skill-paths.js`
+
+Standardizes relative paths in skill prompts to absolute SHEAF-style paths. Use this when developing or updating skills to ensure all internal references (prompts, agents, resources, etc.) are correctly resolved during installation.
+
+- **Usage**: `node bin/fix-skill-paths.js <skill-name>`
+- **Features**:
+  - Resolves folder references (`prompts/`, `agents/`, etc.) relative to the current file.
+  - Resolves direct `.md` file references within the same directory.
+  - Automatically handles `../` and `./` prefixes.
+  - Verifies file existence for local references to avoid false positives.
+
 ---
 
 ## Workflow files (engine behavior)

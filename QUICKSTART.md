@@ -133,3 +133,14 @@ Always choose one next action.
 - keep `STATE.md` concise and current
 - write handoff before context is lost
 - end every command with one concrete next step
+
+## 9) Maintenance & Utils
+
+Standardize skill paths after development/updates:
+
+```bash
+node bin/fix-skill-paths.js <skill-name>
+```
+
+Ensures all relative references in skills are resolved correctly for distribution.
+
