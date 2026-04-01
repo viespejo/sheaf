@@ -53,10 +53,11 @@ Next phase: PLAN
    - STATE.md recent activity/decisions
    - User confirmations from APPLY session (manual done/skip/stop)
 3. Build per-task outcome map using APPLY contract:
-   - `agent_applied`
-   - `manual`
+   - `agent_applied` (review_status: `accepted` or `amended_manually`)
+   - `manual` (review_status: `accepted`)
    - `skipped`
    - `stopped` (if loop paused)
+   - Extract any user `rationale` provided for `amended_manually`, `manual`, or `skipped` tasks.
 </step>
 
 <step name="reconcile_plan_vs_actual">
@@ -66,10 +67,11 @@ Next phase: PLAN
 2. For each acceptance criterion:
    - Mark Pass / Fail / Partial
    - Add concise justification
-3. Record deviations:
-   - skipped work
+3. Record deviations and learnings:
+   - skipped work and the provided rationale
+   - manual amendments and the provided rationale
    - boundary overrides
-   - approach changes from original plan
+   - Perform a semantic analysis of the user's rationales. If they indicate a recurring issue (e.g., "API changed", "wrong assumption"), explicitly recommend updating project context or creating a follow-up plan.
 4. Record deferred items for next plans/phases
 </step>
 
@@ -82,7 +84,7 @@ Minimum required contents:
 - Acceptance criteria results table
 - Task outcome summary (manual / agent_applied / skipped)
 - Files created/modified (best-known list)
-- Deviations and deferred items
+- Deviations & Manual Interventions (map user rationales to the "Deviations from Plan" section, categorizing them as auto-fixed or deferred based on semantic context)
 - Next-phase readiness (ready / concerns / blockers)
 </step>
 

@@ -49,46 +49,53 @@ Next phase: UNIFY (after execution completes)
 **For each <task> in order, present a preview fragment and require an explicit user decision.**
 
 **Notes:**
-- SHEAF will generate previews as small fragments of the new content (context + inserted lines) suitable for copy/paste/edit. No unified before/after diffs are displayed.
+- SHEAF will present planned changes using a context-rich, unified code block format for easy review.
 - Decision is mandatory per task.
 
 ---
 
 **For each <task>:**
 
-**1. PREPARE PREVIEW FRAGMENTS (no file writes)**
+**1. PREPARE PREVIEW FORMAT (no file writes)**
 - Determine target files from <files> or action spec.
-- For each target file:
-  - Read a small context window from the repository (e.g., 3 lines surrounding insertion point) if file exists.
-  - Render the "proposed fragment" to insert or edit (fragment only).
-  - If file is new, present the fragment as the full file content to create.
+- For each target file, present the planned changes using a unified code block format:
+  - Do NOT show the entire file unless it is very small (< 20 lines) or newly created.
+  - Show the specific block of code being changed, including 5-10 lines of surrounding context above and below the change.
+  - Use language-specific comments to indicate unchanged code (e.g., `// ... existing code ...` or `# ... existing code ...`).
+  - Enclose the code block in 4 backticks (````).
+  - Immediately following the opening backticks, specify the language ID and the relative file path to provide context (e.g., ````javascript {src/components/Button.jsx}`).
 - Collect a short action summary and the suggested verify command (if task defines <verify>), shown as guidance only.
 
 **2. DISPLAY PREVIEW & PROMPT FOR DECISION (OBLIGATORY)**
 - Show:
   - Task header: "Task N: [name]"
   - Files affected
-  - For each file: path + preview fragment (with minimal surrounding context)
+  - For each file: the context-rich preview block formatted exactly as described above.
   - Suggested verify command (informational)
 - Mandatory choices:
-  - [1] I will apply these changes manually (SHEAF will wait; you must type "done")
-  - [2] SHEAF: apply these changes now (SHEAF will write files)
-  - [3] Skip this task (record deviation and continue)
+  - [1] I have applied these changes manually (continue, optionally append rationale: "1 fixed API")
+  - [2] SHEAF: apply these changes now (SHEAF will write files and enter Review Loop)
+  - [3] Skip this task (continue, optionally append rationale: "3 not needed")
 - Wait for user's exact choice.
 
 **3. HANDLE CHOICE**
 - **If [1] (manual):**
-  - SHEAF does NOT write files.
-  - SHEAF shows concise apply instructions (copy/paste lines or open file X and edit).
-  - SHEAF logs: {task, decision: manual, timestamp}.
-  - SHEAF waits for user input: "done" / "skip" / "stop".
-  - On "done": record completion and continue.
-  - On "skip": record deviation and continue.
-  - On "stop": halt workflow (state saved for resume).
+  - SHEAF assumes the user has already made the necessary edits in their editor while reviewing the preview.
+  - SHEAF does NOT write files and does not need to show further apply instructions.
+  - **Frictionless logging:** SHEAF extracts any optional rationale directly from the user's menu choice message (e.g., if user replies "1 because API changed", rationale is "because API changed"). Do NOT prompt separately for rationale.
+  - SHEAF logs: `{task, decision: manual, review_status: accepted, rationale, timestamp}`.
+  - Continue to next task.
 - **If [2] (agent applies):**
   - SHEAF writes fragments into files (respect boundaries).
   - If a write would violate a protected boundary, SHEAF stops and requires explicit override; do not apply without consent.
-  - SHEAF logs: {task, decision: agent_applied, timestamp}.
+  - **ENTER POST-APPLY REVIEW LOOP:**
+    - Show applied-change summary (files touched).
+    - Prompt for post-apply review:
+      - [A] Accept task result and continue
+      - [B] I have manually amended this task (continue, optionally append rationale: "B fixed typo")
+    - Wait for user choice.
+    - If [A]: log `{task, decision: agent_applied, review_status: accepted, timestamp}`.
+    - If [B]: **Frictionless logging:** extract optional rationale directly from the user's message (e.g., "B fixed typo in variable name"). Do NOT prompt separately for rationale. Log `{task, decision: agent_applied, review_status: amended_manually, rationale, timestamp}`.
   - Continue to next task.
 - **If [3] (skip):**
   - SHEAF logs: {task, decision: skipped, reason: user_skip, timestamp}.
@@ -153,7 +160,7 @@ After all tasks attempted:
 - Do not modify protected files without explicit override; record override decision
 
 **User never confirms manual application:**
-- SHEAF will wait for "done"; offer user "save and exit" to continue later
+- If the user is unresponsive during a prompt, offer "save and exit" to continue later.
 </error_handling>
 
 <anti_patterns>
