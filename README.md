@@ -95,9 +95,57 @@ Runtime prompt behavior:
 
 ---
 
-## What SHEAF is for
+## Context Priming for LLM Sessions (Optional)
 
-Use SHEAF when you want to:
+If you want to avoid repetitive repository discovery (`ls`, `find`, `cat`) at the start of a coding session, you can generate a structured context snapshot manually before chatting with an LLM.
+
+Reference path:
+
+- `{{RUNTIME_DIR}}/sheaf/tools/context-dump.sh`
+
+Concrete runtime paths:
+
+- CodeCompanion: `.codecompanion/sheaf/tools/context-dump.sh`
+- Claude Code: `.claude/sheaf/tools/context-dump.sh`
+- Gemini CLI: `.gemini/sheaf/tools/context-dump.sh`
+
+Run the command from the **project root you want to snapshot**.
+
+### Usage patterns
+
+Ephemeral output to stdout (default):
+
+```bash
+bash .codecompanion/sheaf/tools/context-dump.sh
+```
+
+Save output to file (optional):
+
+```bash
+bash .codecompanion/sheaf/tools/context-dump.sh --out context.md
+```
+
+Add ad-hoc files at runtime:
+
+```bash
+bash .codecompanion/sheaf/tools/context-dump.sh --include docs/decisions.md
+```
+
+### `.contextdump` and `--include`
+
+- `.contextdump` is optional.
+- When present, it is read from the project root (one relative path per line, comments allowed).
+- `--include` appends extra files at runtime.
+- Entries from `.contextdump` and `--include` are merged with deduplication.
+
+### Optional direct execution
+
+Canonical usage is `bash <path>`, but you can run it directly if executable:
+
+```bash
+chmod +x .codecompanion/sheaf/tools/context-dump.sh
+./.codecompanion/sheaf/tools/context-dump.sh
+```
 
 - convert product/architecture intent into executable plans,
 - execute plans with explicit control per task,
@@ -267,7 +315,6 @@ Create or update product briefs through guided or autonomous discovery using the
 ---
 
 ## Maintenance Tools
-
 
 ### `bin/fix-skill-paths.js`
 

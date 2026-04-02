@@ -1,0 +1,16 @@
+# Extra files to always include in the context dump
+# One path per line, relative to the project root
+# Empty lines and comments (#) are ignored
+
+# Architecture and decisions
+docs/architecture.md
+docs/prd.md
+
+# Project conventions
+
+# Key domain files
+bin/install.js
+src/runtimes/index.js
+src/runtimes/gemini.js
+src/prompts/base/init.md
+src/workflows/init-project.md

@@ -63,10 +63,10 @@ function fixPathsInFile(filePath) {
   const fileDirRelative = path.dirname(path.relative(skillDir, filePath));
 
   // Replace relative path prefixes or local file references
-  // Matches: 
+  // Matches:
   // 1. (dots/)?(prompts|resources|agents|steps)/
   // 2. filename.md (if it's one of our known folders' contents or just a .md file in the same dir)
-  
+
   // First, handle the directory-based matches (prompts/, agents/, etc.)
   let updated = content.replace(
     /(^|[\s`"'(])((?:\.\.?\/)*)(prompts|resources|agents|steps)\//gm,
@@ -88,7 +88,7 @@ function fixPathsInFile(filePath) {
         return `${prefix}${SHEAF_PREFIX}${skillName}/${resolvedPath}${suffix}`;
       }
       return match;
-    }
+    },
   );
 
   if (content !== updated) {

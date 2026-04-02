@@ -143,4 +143,3 @@ node bin/fix-skill-paths.js <skill-name>
 ```
 
 Ensures all relative references in skills are resolved correctly for distribution.
-

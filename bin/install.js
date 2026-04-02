@@ -445,12 +445,31 @@ function install(config, dryRun) {
       console.log(`    ${dim}[dry-run] mkdir -p ${sheafDest}${reset}`);
     }
 
-    const srcDirs = ['templates', 'workflows', 'references', 'skills', 'rules'];
+    const srcDirs = [
+      'templates',
+      'workflows',
+      'references',
+      'skills',
+      'rules',
+      'tools',
+    ];
     for (const dir of srcDirs) {
       const dirSrc = path.join(srcRoot, 'src', dir);
       const dirDest = path.join(sheafDest, dir);
       if (fs.existsSync(dirSrc)) {
         copyWithPathReplacement(dirSrc, dirDest, pathPrefix, dryRun);
+      }
+    }
+
+    if (!dryRun) {
+      const toolsDir = path.join(sheafDest, 'tools');
+      if (fs.existsSync(toolsDir) && fs.statSync(toolsDir).isDirectory()) {
+        const toolEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
+        for (const entry of toolEntries) {
+          if (!entry.isFile() || !entry.name.endsWith('.sh')) continue;
+          const toolPath = path.join(toolsDir, entry.name);
+          fs.chmodSync(toolPath, 0o755);
+        }
       }
     }
     console.log(`    ${green}✓${reset} Installed sheaf artifacts\n`);
