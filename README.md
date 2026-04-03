@@ -234,7 +234,7 @@ Create or continue one implementation plan for a selected story.
 - Updates state/roadmap after approval.
 - Ends with one action: `/sheaf:apply [plan-path]`.
 
-### `/sheaf:brainstorm`
+### `/sheaf:brainstorming`
 
 Run a BMAD-style interactive brainstorming session with continuity.
 
