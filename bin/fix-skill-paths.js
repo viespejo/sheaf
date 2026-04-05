@@ -60,36 +60,26 @@ function processDirectory(dir) {
  */
 function fixPathsInFile(filePath) {
   const content = fs.readFileSync(filePath, 'utf8');
-  const fileDirRelative = path.dirname(path.relative(skillDir, filePath));
+  // const fileDirRelative = path.dirname(path.relative(skillDir, filePath));
 
-  // Replace relative path prefixes or local file references
-  // Matches:
-  // 1. (dots/)?(prompts|resources|agents|steps)/
-  // 2. filename.md (if it's one of our known folders' contents or just a .md file in the same dir)
+  const pathRegex =
+    /(^|[\s`"'(])((?:\.\.?\/)[\w\-/.]*|[\w\-/]+\.md)([\s`"')|$])/gm;
 
-  // First, handle the directory-based matches (prompts/, agents/, etc.)
-  let updated = content.replace(
-    /(^|[\s`"'(])((?:\.\.?\/)*)(prompts|resources|agents|steps)\//gm,
-    (match, prefix, dots, group) => {
-      const resolvedPath = path.join(fileDirRelative, dots, group);
-      return `${prefix}${SHEAF_PREFIX}${skillName}/${resolvedPath}/`;
-    },
-  );
+  let updated = content.replace(pathRegex, (match, prefix, relPath, suffix) => {
+    // Resolve the path relative to the current file
+    const localFilePath = path.resolve(path.dirname(filePath), relPath);
 
-  // Second, handle direct file references in the same directory (e.g., "finalize.md" inside prompts/)
-  // We look for .md files that don't have a slash before them and aren't already part of a SHEAF path
-  updated = updated.replace(
-    /(^|[\s`"'(])(?!\/|{{)([\w-]+\.md)([\s`"')|$])/gm,
-    (match, prefix, fileName, suffix) => {
-      // Only replace if the file exists in the same directory as the current file
-      const localFilePath = path.join(path.dirname(filePath), fileName);
-      if (fs.existsSync(localFilePath)) {
-        const resolvedPath = path.join(fileDirRelative, fileName);
-        return `${prefix}${SHEAF_PREFIX}${skillName}/${resolvedPath}${suffix}`;
-      }
-      return match;
-    },
-  );
+    // Only convert if it exists on disk and is inside our skill directory
+    if (fs.existsSync(localFilePath) && localFilePath.startsWith(skillDir)) {
+      const relativeFromSkillRoot = path.relative(skillDir, localFilePath);
+
+      // Ensure directories keep their trailing slash if they had it
+      const trailingSlash = relPath.endsWith('/') ? '/' : '';
+      return `${prefix}${SHEAF_PREFIX}${skillName}/${relativeFromSkillRoot}${trailingSlash}${suffix}`;
+    }
+
+    return match;
+  });
 
   if (content !== updated) {
     fs.writeFileSync(filePath, updated);
