@@ -10,7 +10,7 @@ Support continuation of previous sessions, guide technique selection, generate a
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md`
+`{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/workflow.md`
 </execution_context>
 
 <context>
@@ -20,7 +20,7 @@ Support continuation of previous sessions, guide technique selection, generate a
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/workflow.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/workflow.md
 </process>
 
 <success_criteria>

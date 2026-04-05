@@ -8,7 +8,7 @@ Execute an approved PLAN.md file by presenting per-task previews and requiring a
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/apply-phase.md`
 </execution_context>
 
 <context>
@@ -16,7 +16,7 @@ Plan path: $ARGUMENTS
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/apply-phase.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/apply-phase.md
 </process>
 
 <success_criteria>

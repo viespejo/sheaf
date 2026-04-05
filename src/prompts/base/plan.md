@@ -10,7 +10,7 @@ This is planning-first: interview, challenge, and agreement before writing files
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/plan-phase.md`
 </execution_context>
 
 <context>
@@ -18,7 +18,7 @@ $STORY: $ARGUMENTS
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/plan-phase.md
 </process>
 
 <success_criteria>

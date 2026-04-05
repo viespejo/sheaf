@@ -9,3 +9,4 @@ coverage/
 .claude
 .gemini
 .sheaf
+.sheaf-runtime

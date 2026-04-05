@@ -40,7 +40,7 @@ Load techniques from CSV on-demand:
 
 **Load CSV and parse:**
 
-- Read `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+- Read `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/brain-methods.csv`
 - Parse: category, technique_name, description, facilitation_prompts, best_for, energy_level, typical_duration
 - Organize by categories for browsing
 
@@ -188,7 +188,7 @@ stepsCompleted: [1, 2]
 ```
 
 **Route to execution:**
-Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+Load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
 
 ### 7. Handle Back Option
 
@@ -224,6 +224,6 @@ If user selects [Back]:
 
 ## NEXT STEP:
 
-After technique confirmation, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the selected brainstorming techniques.
+After technique confirmation, load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the selected brainstorming techniques.
 
 Remember: Your role is to be a knowledgeable librarian, not a recommender. Let the user explore and choose based on their interests and intuition!

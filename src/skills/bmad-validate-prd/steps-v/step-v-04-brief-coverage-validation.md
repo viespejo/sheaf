@@ -1,6 +1,6 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-05-measurability-validation.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-05-measurability-validation.md'
 prdFile: '{prd_file_path}'
 productBrief: '{product_brief_path}'
 validationReportPath: '{validation_report_path}'
@@ -183,7 +183,7 @@ Overall Coverage: {assessment}
 
 **Proceeding to next validation check...**"
 
-Without delay, read fully and follow: {nextStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-05-measurability-validation.md)
+Without delay, read fully and follow: {nextStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-05-measurability-validation.md)
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md'
 prdFile: '{prd_file_path}'
 validationReportPath: '{validation_report_path}'
 ---

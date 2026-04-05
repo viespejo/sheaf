@@ -80,7 +80,7 @@ Read the frontmatter from `{outputFile}` to get document counts:
 **Attempt subprocess data lookup:**
 
 **Project Type Lookup:**
-"Your task: Lookup data in {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/project-types.csv
+"Your task: Lookup data in {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/project-types.csv
 
 **Search criteria:**
 - Find row where project_type matches {{detectedProjectType}}
@@ -92,7 +92,7 @@ project_type, detection_signals
 **Do NOT return the entire CSV - only the matching row.**"
 
 **Domain Complexity Lookup:**
-"Your task: Lookup data in {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/domain-complexity.csv
+"Your task: Lookup data in {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/domain-complexity.csv
 
 **Search criteria:**
 - Find row where domain matches {{detectedDomain}}
@@ -171,7 +171,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Pr
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current classification, process the enhanced insights that come back, ask user if they accept the improvements, if yes update classification then redisplay menu, if no keep original classification then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current classification, process the collaborative insights, ask user if they accept the changes, if yes update classification then redisplay menu, if no keep original classification then redisplay menu
-- IF C: Save classification to {outputFile} frontmatter, add this step name to the end of stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02b-vision.md
+- IF C: Save classification to {outputFile} frontmatter, add this step name to the end of stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02b-vision.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -181,7 +181,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Pr
 
 ## CRITICAL STEP COMPLETION NOTE
 
-ONLY WHEN [C continue option] is selected and [classification saved to frontmatter], will you then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02b-vision.md` to explore product vision.
+ONLY WHEN [C continue option] is selected and [classification saved to frontmatter], will you then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02b-vision.md` to explore product vision.
 
 ---
 

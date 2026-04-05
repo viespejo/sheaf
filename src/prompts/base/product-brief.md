@@ -8,7 +8,7 @@ Create compelling product briefs through collaborative discovery, intelligent ar
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/SKILL.md`
+`{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/SKILL.md`
 </execution_context>
 
 <context>
@@ -20,7 +20,7 @@ Create compelling product briefs through collaborative discovery, intelligent ar
 </context>
 
 <process>
-Load Skill in {{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/SKILL.md
+Load Skill in {{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/SKILL.md
 </process>
 
 <success_criteria>

@@ -117,14 +117,14 @@ For each prompt file name in `src/prompts/base/`:
 3. Validate target contains `{{BASE_BODY}}` **exactly once**.
 4. Merge frontmatter (target overrides base; nested objects shallow-merged).
 5. Replace `{{BASE_BODY}}` in target with base body.
-6. Rewrite `{{RUNTIME_DIR}}` tokens according to installation scope.
+6. Rewrite `{{SHEAF_RUNTIME_DIR}}` tokens according to installation scope.
 7. Apply runtime transform:
    - Markdown passthrough for CodeCompanion/Claude.
    - Markdown → TOML conversion for Gemini (`toGeminiToml`).
 
 ### Path rewriting contract
 
-`{{RUNTIME_DIR}}` is rewritten using chosen scope:
+`{{SHEAF_RUNTIME_DIR}}` is rewritten using chosen scope:
 
 - **local**: runtime-relative prefix (`./.codecompanion/`, `./.claude/`, `./.gemini/`)
 - **global**: absolute install target path
@@ -143,7 +143,7 @@ loop each selected runtime
   CLI -> base prompts: read *.md
   CLI -> runtime targets: read matching *.md
   CLI -> composer: merge frontmatter + inject {{BASE_BODY}}
-  CLI -> path rewriter: replace {{RUNTIME_DIR}}
+  CLI -> path rewriter: replace {{SHEAF_RUNTIME_DIR}}
   CLI -> runtime transform: md passthrough or Gemini TOML
   CLI -> runtime command dir: write prompt/command files
   CLI -> sheaf assets copier: copy templates/workflows/references/skills/rules/tools
@@ -206,7 +206,6 @@ These commands extend capabilities without redefining loop nucleus:
 | `sheaf:edit-prd`      | `skills/bmad-edit-prd/workflow.md`      | Extension |
 | `sheaf:validate-prd`  | `skills/bmad-validate-prd/workflow.md`  | Extension |
 | `sheaf:rfc`           | Inline RFC process in prompt body       | Extension |
-
 
 ### Command execution flow (sequence)
 
@@ -279,7 +278,7 @@ Primary project state artifacts live under `.sheaf/` (created during init and ev
 1. Create skill directory under `src/skills/<skill-name>/`.
 2. Include contract docs (`SKILL.md`, `workflow.md`, prompts/resources/agents/steps as needed).
 3. Normalize internal links with `node bin/fix-skill-paths.js <skill-name>`.
-4. Reference skill from prompt/workflow using `{{RUNTIME_DIR}}/sheaf/skills/...` paths.
+4. Reference skill from prompt/workflow using `{{SHEAF_RUNTIME_DIR}}/skills/...` paths.
 
 ### Add a new runtime
 

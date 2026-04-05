@@ -40,7 +40,7 @@ Conduct project-type specific discovery using CSV-driven guidance to define tech
 
 **Attempt subprocess data lookup:**
 
-"Your task: Lookup data in {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/project-types.csv
+"Your task: Lookup data in {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/project-types.csv
 
 **Search criteria:**
 - Find row where project_type matches {{projectTypeFromStep02}}
@@ -159,7 +159,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Sc
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current project-type content, process the enhanced technical insights that come back, ask user "Accept these improvements to the technical requirements? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current project-type requirements, process the collaborative technical expertise and validation, ask user "Accept these changes to the technical requirements? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-08-scoping.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-08-scoping.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -217,6 +217,6 @@ When user selects 'C', append the content directly to the document using the str
 
 ## NEXT STEP:
 
-After user selects 'C' and content is saved to document, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-08-scoping.md` to define project scope.
+After user selects 'C' and content is saved to document, load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-08-scoping.md` to define project scope.
 
 Remember: Do NOT proceed to step-08 (Scoping) until user explicitly selects 'C' from the A/P/C menu and content is saved!

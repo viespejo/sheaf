@@ -1,7 +1,7 @@
 ---
 # File references (ONLY variables used in this step)
 prdFile: '{prd_file_path}'
-validationWorkflow: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md'
+validationWorkflow: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md'
 ---
 
 # Step E-4: Complete & Validate
@@ -117,14 +117,14 @@ Display:
   - Display: "This will run all 13 validation checks on the updated PRD."
   - Display: "Preparing to validate: {prd_file_path}"
   - Display: "**Proceeding to validation...**"
-  - Read fully and follow: {validationWorkflow} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)
+  - Read fully and follow: {validationWorkflow} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)
   - Note: This hands off to the validation workflow which will run its complete 13-step process
 
 - **IF E (Edit More):**
   - Display: "**Additional Edits**"
   - Ask: "What additional edits would you like to make?"
   - Accept input, then display: "**Returning to edit step...**"
-  - Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-03-edit.md` again
+  - Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-03-edit.md` again
 
 - **IF S (Summary):**
   - Display detailed summary including:

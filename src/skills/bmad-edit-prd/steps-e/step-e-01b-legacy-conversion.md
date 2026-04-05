@@ -1,7 +1,7 @@
 ---
 # File references (ONLY variables used in this step)
 prdFile: '{prd_file_path}'
-prdPurpose: '{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/prd-purpose.md'
+prdPurpose: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/prd-purpose.md'
 ---
 
 # Step E-1B: Legacy PRD Conversion Assessment
@@ -178,7 +178,7 @@ Edit goals: {summary}
 
 **Proceeding to deep review...**"
 
-Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-02-review.md`
+Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-02-review.md`
 
 ---
 

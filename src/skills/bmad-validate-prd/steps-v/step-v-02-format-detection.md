@@ -1,7 +1,7 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md'
-altStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-02b-parity-check.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md'
+altStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-02b-parity-check.md'
 prdFile: '{prd_file_path}'
 validationReportPath: '{validation_report_path}'
 ---
@@ -133,7 +133,7 @@ Display: "**Format Detected:** {classification}
 
 Proceeding to systematic validation checks..."
 
-Without delay, read fully and follow: {nextStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md)
+Without delay, read fully and follow: {nextStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-03-density-validation.md)
 
 **IF format is Non-Standard (< 3 core sections):**
 
@@ -158,7 +158,7 @@ Present MENU OPTIONS below for user selection
 
 #### Menu Handling Logic:
 
-- IF A (Parity Check): Read fully and follow: {altStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-02b-parity-check.md)
+- IF A (Parity Check): Read fully and follow: {altStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-02b-parity-check.md)
 - IF B (Validate As-Is): Display "Proceeding with validation..." then read fully and follow: {nextStepFile}
 - IF C (Exit): Display format findings summary and exit validation
 - IF Any other: help user respond, then redisplay menu

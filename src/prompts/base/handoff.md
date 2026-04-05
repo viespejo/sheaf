@@ -10,7 +10,7 @@ Use this at end of session, before context break, or when continuity quality mat
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/handoff-project.md`
 </execution_context>
 
 <context>
@@ -18,7 +18,7 @@ Use this at end of session, before context break, or when continuity quality mat
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/handoff-project.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/handoff-project.md
 </process>
 
 <success_criteria>

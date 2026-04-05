@@ -1,10 +1,10 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-10-smart-validation.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-10-smart-validation.md'
 prdFile: '{prd_file_path}'
 prdFrontmatter: '{prd_frontmatter}'
 validationReportPath: '{validation_report_path}'
-projectTypesData: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/data/project-types.csv'
+projectTypesData: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/data/project-types.csv'
 ---
 
 # Step 9: Project-Type Compliance Validation
@@ -61,7 +61,7 @@ Validate project-type specific requirements are properly documented - different 
 ### 1. Load Project Types Data
 
 Load and read the complete file at:
-`{projectTypesData}` ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/data/project-types.csv)
+`{projectTypesData}` ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/data/project-types.csv)
 
 This CSV contains:
 - Detection signals for each project type
@@ -231,7 +231,7 @@ Compliance: {score}%
 
 **Proceeding to next validation check...**"
 
-Without delay, read fully and follow: {nextStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-10-smart-validation.md)
+Without delay, read fully and follow: {nextStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-10-smart-validation.md)
 
 ---
 

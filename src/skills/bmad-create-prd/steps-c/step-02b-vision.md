@@ -103,7 +103,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Ex
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current vision insights, process the enhanced insights that come back, ask user if they accept the improvements, if yes update understanding then redisplay menu, if no keep original understanding then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current vision insights, process the collaborative insights, ask user if they accept the changes, if yes update understanding then redisplay menu, if no keep original understanding then redisplay menu
-- IF C: Update {outputFile} frontmatter by adding this step name to the end of stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md
+- IF C: Update {outputFile} frontmatter by adding this step name to the end of stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -113,7 +113,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Ex
 
 ## CRITICAL STEP COMPLETION NOTE
 
-ONLY WHEN [C continue option] is selected and [stepsCompleted updated], will you then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md` to generate the Executive Summary.
+ONLY WHEN [C continue option] is selected and [stepsCompleted updated], will you then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md` to generate the Executive Summary.
 
 ---
 

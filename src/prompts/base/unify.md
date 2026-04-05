@@ -8,7 +8,7 @@ Reconcile an executed PLAN.md against actual results, create SUMMARY.md, update 
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/unify-phase.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/unify-phase.md`
 </execution_context>
 
 <context>
@@ -16,7 +16,7 @@ Reconcile an executed PLAN.md against actual results, create SUMMARY.md, update 
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/unify-phase.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/unify-phase.md
 </process>
 
 <success_criteria>

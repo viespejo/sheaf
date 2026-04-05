@@ -1,5 +1,5 @@
 ---
-validateWorkflow: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md'
+validateWorkflow: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md'
 ---
 
 # PRD Validate Workflow
@@ -56,4 +56,4 @@ This uses **step-file architecture** for disciplined execution:
 
 "**Validate Mode: Validating an existing PRD against BMAD standards.**"
 
-Then read fully and follow: `{validateWorkflow}` ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)
+Then read fully and follow: `{validateWorkflow}` ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)

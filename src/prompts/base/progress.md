@@ -10,7 +10,7 @@ Use this for a mid-session checkpoint, after resume, or whenever the next step i
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/progress-project.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/progress-project.md`
 </execution_context>
 
 <context>
@@ -18,7 +18,7 @@ Use this for a mid-session checkpoint, after resume, or whenever the next step i
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/progress-project.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/progress-project.md
 </process>
 
 <success_criteria>

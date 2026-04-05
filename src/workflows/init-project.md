@@ -18,7 +18,7 @@ This INIT is opinionated for a single-user architect workflow and avoids framewo
 </philosophy>
 
 <references>
-`{{RUNTIME_DIR}}/sheaf/references/sheaf-json.md`
+`{{SHEAF_RUNTIME_DIR}}/references/sheaf-json.md`
 </references>
 
 <process>
@@ -510,7 +510,7 @@ Resume file: .sheaf/PROJECT.md
 <step name="create_sheaf_json">
 **Create satellite manifest for external system discovery.**
 
-Reference: {{RUNTIME_DIR}}/sheaf/references/sheaf-json.md
+Reference: {{SHEAF_RUNTIME_DIR}}/references/sheaf-json.md
 
 Create `.sheaf/sheaf.json`:
 ```json

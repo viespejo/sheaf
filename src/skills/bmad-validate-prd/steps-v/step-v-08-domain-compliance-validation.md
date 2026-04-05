@@ -1,10 +1,10 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-09-project-type-validation.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-09-project-type-validation.md'
 prdFile: '{prd_file_path}'
 prdFrontmatter: '{prd_frontmatter}'
 validationReportPath: '{validation_report_path}'
-domainComplexityData: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/data/domain-complexity.csv'
+domainComplexityData: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/data/domain-complexity.csv'
 ---
 
 # Step 8: Domain Compliance Validation
@@ -61,7 +61,7 @@ Validate domain-specific requirements are present for high-complexity domains (H
 ### 1. Load Domain Complexity Data
 
 Load and read the complete file at:
-`{domainComplexityData}` ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/data/domain-complexity.csv)
+`{domainComplexityData}` ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/data/domain-complexity.csv)
 
 This CSV contains:
 - Domain classifications and complexity levels (high/medium/low)
@@ -210,7 +210,7 @@ Compliance Status: {status}
 
 **Proceeding to next validation check...**"
 
-Without delay, read fully and follow: {nextStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-09-project-type-validation.md)
+Without delay, read fully and follow: {nextStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-09-project-type-validation.md)
 
 ---
 

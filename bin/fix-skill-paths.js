@@ -28,7 +28,7 @@ if (!fs.existsSync(skillDir)) {
   process.exit(1);
 }
 
-const SHEAF_PREFIX = '{{RUNTIME_DIR}}/sheaf/skills/';
+const SHEAF_PREFIX = '{{SHEAF_RUNTIME_DIR}}/skills/';
 
 /**
  * Recursively scans a directory for markdown files and replaces paths.
@@ -53,9 +53,9 @@ function processDirectory(dir) {
 /**
  * Replaces relative paths with standardized SHEAF paths.
  * Handles:
- *   prompts/ -> {{RUNTIME_DIR}}/sheaf/skills/<skill>/prompts/
- *   ./prompts/ -> {{RUNTIME_DIR}}/sheaf/skills/<skill>/prompts/
- *   ../prompts/ -> {{RUNTIME_DIR}}/sheaf/skills/<skill>/prompts/
+ *   prompts/ -> {{SHEAF_RUNTIME_DIR}}/skills/<skill>/prompts/
+ *   ./prompts/ -> {{SHEAF_RUNTIME_DIR}}/skills/<skill>/prompts/
+ *   ../prompts/ -> {{SHEAF_RUNTIME_DIR}}/skills/<skill>/prompts/
  * Resolves paths relative to the current file.
  */
 function fixPathsInFile(filePath) {

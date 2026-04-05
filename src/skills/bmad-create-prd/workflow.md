@@ -52,4 +52,4 @@ This uses **step-file architecture** for disciplined execution:
 
 "**Create Mode: Creating a new PRD from scratch.**"
 
-Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-01-init.md`
+Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-01-init.md`

@@ -49,7 +49,7 @@ Detect and explore innovation patterns in the product, focusing on what makes it
 
 Load innovation signals specific to this project type:
 
-- Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/project-types.csv` completely
+- Load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/project-types.csv` completely
 - Find the row where `project_type` matches detected type from step-02
 - Extract `innovation_signals` (semicolon-separated list)
 - Extract `web_search_triggers` for potential innovation research
@@ -142,7 +142,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Pr
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current innovation content, process the enhanced innovation insights that come back, ask user "Accept these improvements to the innovation analysis? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current innovation content, process the collaborative innovation exploration and ideation, ask user "Accept these changes to the innovation analysis? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -161,7 +161,7 @@ Display: "**Select:** [A] Advanced Elicitation - Let's try to find innovative an
 
 ### Menu Handling Logic:
 - IF A: Proceed with content generation anyway, then return to menu
-- IF C: Skip this step, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md
+- IF C: Skip this step, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md
 
 ### EXECUTION RULES:
 - ALWAYS halt and wait for user input after presenting menu
@@ -197,7 +197,7 @@ When user selects 'C', append the content directly to the document using the str
 
 ## SKIP CONDITIONS:
 
-Skip this step and load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md` if:
+Skip this step and load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md` if:
 
 - No innovation signals detected in conversation
 - Product is incremental improvement rather than breakthrough
@@ -206,6 +206,6 @@ Skip this step and load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/st
 
 ## NEXT STEP:
 
-After user selects 'C' and content is saved to document (or step is skipped), load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md`.
+After user selects 'C' and content is saved to document (or step is skipped), load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md`.
 
 Remember: Do NOT proceed to step-07 until user explicitly selects 'C' from the A/P/C menu (or confirms step skip)!

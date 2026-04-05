@@ -81,7 +81,7 @@ Each selected runtime receives its own directory (`.codecompanion/`, `.claude/`,
 
 ### Path rewriting and Adaptation behavior
 
-During install, markdown references using the `{{RUNTIME_DIR}}` placeholder are rewritten automatically based on the chosen **Scope**.
+During install, markdown references using the `{{SHEAF_RUNTIME_DIR}}` placeholder are rewritten automatically based on the chosen **Scope**.
 
 Runtime prompt behavior:
 
@@ -101,13 +101,11 @@ If you want to avoid repetitive repository discovery (`ls`, `find`, `cat`) at th
 
 Reference path:
 
-- `{{RUNTIME_DIR}}/sheaf/tools/context-dump.sh`
+- `{{SHEAF_RUNTIME_DIR}}/tools/context-dump.sh`
 
-Concrete runtime paths:
+Concrete installed path:
 
-- CodeCompanion: `.codecompanion/sheaf/tools/context-dump.sh`
-- Claude Code: `.claude/sheaf/tools/context-dump.sh`
-- Gemini CLI: `.gemini/sheaf/tools/context-dump.sh`
+- Shared runtime assets: `.sheaf-runtime/tools/context-dump.sh`
 
 Run the command from the **project root you want to snapshot**.
 
@@ -116,19 +114,19 @@ Run the command from the **project root you want to snapshot**.
 Ephemeral output to stdout (default):
 
 ```bash
-bash .codecompanion/sheaf/tools/context-dump.sh
+bash .sheaf-runtime/tools/context-dump.sh
 ```
 
 Save output to file (optional):
 
 ```bash
-bash .codecompanion/sheaf/tools/context-dump.sh --out context.md
+bash .sheaf-runtime/tools/context-dump.sh --out context.md
 ```
 
 Add ad-hoc files at runtime:
 
 ```bash
-bash .codecompanion/sheaf/tools/context-dump.sh --include docs/decisions.md
+bash .sheaf-runtime/tools/context-dump.sh --include docs/decisions.md
 ```
 
 ### `.contextdump` and `--include`
@@ -143,8 +141,8 @@ bash .codecompanion/sheaf/tools/context-dump.sh --include docs/decisions.md
 Canonical usage is `bash <path>`, but you can run it directly if executable:
 
 ```bash
-chmod +x .codecompanion/sheaf/tools/context-dump.sh
-./.codecompanion/sheaf/tools/context-dump.sh
+chmod +x .sheaf-runtime/tools/context-dump.sh
+./.sheaf-runtime/tools/context-dump.sh
 ```
 
 - convert product/architecture intent into executable plans,
@@ -332,7 +330,6 @@ Validate a PRD against organizational or quality standards using the **BMAD Vali
 
 - **Objective**: Ensure a PRD is complete, consistent, and ready for implementation.
 - **Process**: Analyzes the document for gaps, ambiguities, and alignment with project goals.
-
 
 ---
 
@@ -582,7 +579,6 @@ Available prompt entrypoints under `src/prompts/`:
 - `edit-prd.md`
 - `validate-prd.md`
 - `brainstorming.md`
-
 
 If your runtime requires explicit command registration outside prompt files, wire these entrypoints in your host configuration.
 

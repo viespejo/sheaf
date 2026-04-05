@@ -165,7 +165,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Us
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current success criteria content, process the enhanced success metrics that come back, ask user "Accept these improvements to the success criteria? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current success criteria, process the collaborative improvements to metrics and scope, ask user "Accept these changes to the success criteria? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-04-journeys.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-04-journeys.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -209,6 +209,6 @@ If working in regulated domains (healthcare, fintech, govtech):
 
 ## NEXT STEP:
 
-After user selects 'C' and content is saved to document, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-04-journeys.md` to map user journeys.
+After user selects 'C' and content is saved to document, load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-04-journeys.md` to map user journeys.
 
 Remember: Do NOT proceed to step-04 until user explicitly selects 'C' from the A/P/C menu and content is saved!

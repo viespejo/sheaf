@@ -19,7 +19,7 @@ Check activation context immediately from `{arguments}`:
 
 1. **Autonomous mode**: If the user passes `--autonomous`/`-A` flags, or provides structured inputs clearly intended for headless execution:
    - Ingest all provided inputs, fan out subagents, produce complete brief without interaction
-   - Route directly to `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/contextual-discovery.md` with `{mode}=autonomous`
+   - Route directly to `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/contextual-discovery.md` with `{mode}=autonomous`
 
 2. **Yolo mode**: If the user passes `--yolo` or says "just draft it" / "draft the whole thing":
    - Ingest everything, draft complete brief upfront, then walk user through refinement
@@ -38,7 +38,7 @@ Check activation context immediately from `{arguments}`:
 
 2. **Greet user** speaking in `{communication_language}`.
 
-3. **Stage 1: Understand Intent** (handled here in {{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/SKILL.md)
+3. **Stage 1: Understand Intent** (handled here in {{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/SKILL.md)
 
 ### Stage 1: Understand Intent
 
@@ -68,14 +68,14 @@ Check activation context immediately from `{arguments}`:
 
 **Capture-don't-interrupt:** If the user shares details beyond brief scope (requirements, platform preferences, technical constraints, timeline), capture them silently for the distillate. Don't redirect or stop their flow.
 
-**When you have enough to understand the product intent**, route to `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/contextual-discovery.md` with the current mode.
+**When you have enough to understand the product intent**, route to `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/contextual-discovery.md` with the current mode.
 
 ## Stages
 
 | # | Stage | Purpose | Prompt |
 |---|-------|---------|--------|
-| 1 | Understand Intent | Know what the brief is about | {{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/SKILL.md (above) |
-| 2 | Contextual Discovery | Sequentially analyze artifacts and web research in one context | `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/contextual-discovery.md` |
-| 3 | Guided Elicitation | Fill gaps through smart questioning | `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/guided-elicitation.md` |
-| 4 | Draft & Review | Draft brief, run sequential multi-lens review | `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/draft-and-review.md` |
-| 5 | Finalize | Polish, output, offer distillate | `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/finalize.md` |
+| 1 | Understand Intent | Know what the brief is about | {{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/SKILL.md (above) |
+| 2 | Contextual Discovery | Sequentially analyze artifacts and web research in one context | `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/contextual-discovery.md` |
+| 3 | Guided Elicitation | Fill gaps through smart questioning | `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/guided-elicitation.md` |
+| 4 | Draft & Review | Draft brief, run sequential multi-lens review | `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/draft-and-review.md` |
+| 5 | Finalize | Polish, output, offer distillate | `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/finalize.md` |

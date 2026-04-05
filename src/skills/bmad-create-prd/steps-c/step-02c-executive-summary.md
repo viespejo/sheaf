@@ -93,7 +93,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Su
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current executive summary content, process the enhanced content that comes back, ask user if they accept the improvements, if yes update content then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current executive summary content, process the collaborative improvements, ask user if they accept the changes, if yes update content then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -126,7 +126,7 @@ Where:
 
 ## CRITICAL STEP COMPLETION NOTE
 
-ONLY WHEN [C continue option] is selected and [content appended to document], will you then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md` to define success criteria.
+ONLY WHEN [C continue option] is selected and [content appended to document], will you then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md` to define success criteria.
 
 ---
 

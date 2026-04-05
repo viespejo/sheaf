@@ -54,4 +54,4 @@ This uses **step-file architecture** for disciplined execution:
 
 Prompt for PRD path: "Which PRD would you like to edit? Please provide the path to the PRD.md file."
 
-Then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-01-discovery.md`
+Then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-01-discovery.md`

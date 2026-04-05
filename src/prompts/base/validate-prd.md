@@ -8,7 +8,7 @@ Validate existing PRDs against BMAD standards through comprehensive review.
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/workflow.md`
+`{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/workflow.md`
 </execution_context>
 
 <context>
@@ -19,5 +19,5 @@ Validate existing PRDs against BMAD standards through comprehensive review.
 </context>
 
 <process>
-Load Skill in {{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/workflow.md
+Load Skill in {{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/workflow.md
 </process>

@@ -47,7 +47,7 @@ Load techniques from CSV for analysis:
 
 **Load CSV and parse:**
 
-- Read `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/brain-methods.csv`
+- Read `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/brain-methods.csv`
 - Parse: category, technique_name, description, facilitation_prompts, best_for, energy_level, typical_duration
 
 ### 2. Context Analysis for Technique Matching
@@ -205,7 +205,7 @@ stepsCompleted: [1, 2]
 ```
 
 **Route to execution:**
-Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
+Load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/steps/step-03-technique-execution.md`
 
 ## SUCCESS METRICS:
 
@@ -234,6 +234,6 @@ Load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-ex
 
 ## NEXT STEP:
 
-After user confirmation, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the AI-recommended brainstorming techniques.
+After user confirmation, load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-brainstorming/steps/step-03-technique-execution.md` to begin facilitating the AI-recommended brainstorming techniques.
 
 Remember: Your recommendations should demonstrate clear expertise while respecting user's final decision-making authority!

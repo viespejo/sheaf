@@ -8,7 +8,7 @@ Edit and improve existing PRDs through structured enhancement workflow
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/workflow.md`
+`{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/workflow.md`
 </execution_context>
 
 <context>
@@ -19,5 +19,5 @@ Edit and improve existing PRDs through structured enhancement workflow
 </context>
 
 <process>
-Load Skill in {{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/workflow.md
+Load Skill in {{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/workflow.md
 </process>

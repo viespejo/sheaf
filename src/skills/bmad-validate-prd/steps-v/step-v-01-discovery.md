@@ -1,7 +1,7 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-02-format-detection.md'
-prdPurpose: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/data/prd-purpose.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-02-format-detection.md'
+prdPurpose: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/data/prd-purpose.md'
 ---
 
 # Step 1: Document Discovery & Confirmation

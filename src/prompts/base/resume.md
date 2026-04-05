@@ -10,7 +10,7 @@ Use this when starting a new session in an existing `.sheaf` project.
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/resume-project.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/resume-project.md`
 </execution_context>
 
 <context>
@@ -18,7 +18,7 @@ Use this when starting a new session in an existing `.sheaf` project.
 </context>
 
 <process>
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/resume-project.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/resume-project.md
 </process>
 
 <success_criteria>

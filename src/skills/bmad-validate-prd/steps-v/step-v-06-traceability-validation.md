@@ -1,6 +1,6 @@
 ---
 # File references (ONLY variables used in this step)
-nextStepFile: '{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-07-implementation-leakage-validation.md'
+nextStepFile: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-07-implementation-leakage-validation.md'
 prdFile: '{prd_file_path}'
 validationReportPath: '{validation_report_path}'
 ---
@@ -186,7 +186,7 @@ Total Issues: {count} ({severity})
 
 **Proceeding to next validation check...**"
 
-Without delay, read fully and follow: {nextStepFile} ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-07-implementation-leakage-validation.md)
+Without delay, read fully and follow: {nextStepFile} ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-07-implementation-leakage-validation.md)
 
 ---
 

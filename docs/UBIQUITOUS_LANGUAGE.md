@@ -41,7 +41,7 @@
 | **Runtime adapter**       | A runtime-specific configuration that defines output format, destination, and prompt transform behavior. | Client, provider             |
 | **Target wrapper**        | A runtime-specific prompt shell that receives shared base prompt content via composition.                | Base prompt, launcher        |
 | **Prompt composition**    | The merge process that injects base prompt body into a runtime target wrapper and combines metadata.     | Rendering only, copy-paste   |
-| **Path rewriting**        | The install-time substitution of `{{RUNTIME_DIR}}` to local-relative or absolute runtime paths.          | Refactor, migration          |
+| **Path rewriting**        | The install-time substitution of `{{SHEAF_RUNTIME_DIR}}` to local-relative or absolute runtime paths.    | Refactor, migration          |
 | **Installed artifact**    | A generated file copied or transformed into a runtime directory as usable output.                        | Source artifact              |
 | **Scope (install scope)** | The path strategy (`local` or `global`) that determines rewritten runtime references.                    | Feature scope, project scope |
 

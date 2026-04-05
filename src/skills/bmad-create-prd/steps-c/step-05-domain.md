@@ -79,7 +79,7 @@ Proceed with domain exploration.
 
 **Attempt subprocess data lookup:**
 
-"Your task: Lookup data in {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/domain-complexity.csv
+"Your task: Lookup data in {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/domain-complexity.csv
 
 **Search criteria:**
 - Find row where domain matches {{domainFromStep02}}
@@ -143,7 +143,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue - Sav
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill, and when finished redisplay the menu
 - IF P: Invoke the `bmad-party-mode` skill, and when finished redisplay the menu
-- IF C: Save content to {outputFile}, update frontmatter, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-06-innovation.md
+- IF C: Save content to {outputFile}, update frontmatter, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-06-innovation.md
 - IF Any other comments or queries: help user respond then [Redisplay Menu Options](#n-present-menu-options)
 
 #### EXECUTION RULES:
@@ -165,7 +165,7 @@ If step was skipped, append nothing and proceed.
 
 ## CRITICAL STEP COMPLETION NOTE
 
-ONLY WHEN [C continue option] is selected and [content saved or skipped], will you then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-06-innovation.md` to explore innovation.
+ONLY WHEN [C continue option] is selected and [content saved or skipped], will you then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-06-innovation.md` to explore innovation.
 
 ---
 

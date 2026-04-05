@@ -171,7 +171,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to No
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current FR list, process the enhanced capability coverage that comes back, ask user if they accept the additions, if yes update content then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current FR list, process the collaborative capability validation and additions, ask user if they accept the changes, if yes update content then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -214,6 +214,6 @@ Emphasize to user: "This FR list is now binding. Any feature not listed here wil
 
 ## NEXT STEP:
 
-After user selects 'C' and content is saved to document, load {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md to define non-functional requirements.
+After user selects 'C' and content is saved to document, load {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md to define non-functional requirements.
 
 Remember: Do NOT proceed to step-10 until user explicitly selects 'C' from the A/P/C menu and content is saved!

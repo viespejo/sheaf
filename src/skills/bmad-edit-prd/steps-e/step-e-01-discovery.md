@@ -1,6 +1,6 @@
 ---
 # File references (ONLY variables used in this step)
-prdPurpose: '{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/prd-purpose.md'
+prdPurpose: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/prd-purpose.md'
 ---
 
 # Step E-1: Discovery & Understanding
@@ -183,7 +183,7 @@ Display: "**Edit Requirements Understood**
 
 **Proceeding to deep review and analysis...**"
 
-Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-02-review.md`
+Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-02-review.md`
 
 **IF PRD is Legacy (Non-Standard) AND no validation report:**
 
@@ -210,7 +210,7 @@ Present MENU OPTIONS below for user selection
 
 #### Menu Handling Logic:
 
-- IF C (Convert): Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-01b-legacy-conversion.md`
+- IF C (Convert): Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-01b-legacy-conversion.md`
 - IF E (Edit As-Is): Display "Proceeding with edits..." then load next step
 - IF X (Exit): Display summary and exit
 - IF Any other: help user, then redisplay menu

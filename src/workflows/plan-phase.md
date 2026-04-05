@@ -30,8 +30,8 @@ PLANNING.md (if present)
 </optional_on_demand_reading>
 
 <references>
-{{RUNTIME_DIR}}/sheaf/references/plan-format.md
-{{RUNTIME_DIR}}/sheaf/templates/PLAN.md
+{{SHEAF_RUNTIME_DIR}}/references/plan-format.md
+{{SHEAF_RUNTIME_DIR}}/templates/PLAN.md
 </references>
 
 <continuity_rules>

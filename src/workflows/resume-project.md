@@ -34,8 +34,8 @@ Do not present multiple routing options.
 </optional_reading>
 
 <references>
-{{RUNTIME_DIR}}/sheaf/references/loop-phases.md
-{{RUNTIME_DIR}}/sheaf/references/context-management.md
+{{SHEAF_RUNTIME_DIR}}/references/loop-phases.md
+{{SHEAF_RUNTIME_DIR}}/references/context-management.md
 </references>
 
 <process>

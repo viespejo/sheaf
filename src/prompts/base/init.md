@@ -11,7 +11,7 @@ Fallback: Conversational Discovery Mode if documents are missing.
 </objective>
 
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/init-project.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/init-project.md`
 </execution_context>
 
 <context>
@@ -23,7 +23,7 @@ Fallback: Conversational Discovery Mode if documents are missing.
 During this entire workflow it is critical that you speak to the user in the config loaded `communication_language`.
 It does not matter if the user responds in a different language, you should always respond in the `communication_language` specified.
 
-Follow the instructions in {{RUNTIME_DIR}}/sheaf/workflows/init-project.md
+Follow the instructions in {{SHEAF_RUNTIME_DIR}}/workflows/init-project.md
 </process>
 
 <success_criteria>

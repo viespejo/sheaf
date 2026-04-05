@@ -18,7 +18,7 @@ const dim = '\x1b[2m';
 const reset = '\x1b[0m';
 
 const BASE_BODY_PLACEHOLDER = '{{BASE_BODY}}';
-const DOCS_DEFAULT_ROOT = '{{RUNTIME_DIR}}';
+const DOCS_DEFAULT_ROOT = '{{SHEAF_RUNTIME_DIR}}';
 
 // Get version from package.json
 const pkg = JSON.parse(
@@ -410,16 +410,62 @@ function install(config, dryRun) {
   const srcRoot = path.join(__dirname, '..');
   const { scope, installDir, runtimes } = config;
 
-  console.log(`\n  ${cyan}Installing runtimes...${reset}\n`);
+  const sharedRuntimeDir = path.join(installDir, '.sheaf-runtime');
+  const sheafRuntimePrefix =
+    scope === 'local'
+      ? './.sheaf-runtime/'
+      : ensureTrailingSlash(sharedRuntimeDir);
+
+  console.log(
+    `\n  ${cyan}Installing runtimes and shared artifacts...${reset}\n`,
+  );
+  console.log(
+    `  ${green}Shared Artifacts${reset} -> ${cyan}${sharedRuntimeDir}${reset} (${scope})`,
+  );
+
+  // Shared .sheaf-runtime/* (written once per run)
+  if (!dryRun) {
+    fs.mkdirSync(sharedRuntimeDir, { recursive: true });
+  } else {
+    console.log(`    ${dim}[dry-run] mkdir -p ${sharedRuntimeDir}${reset}`);
+  }
+
+  const srcDirs = [
+    'templates',
+    'workflows',
+    'references',
+    'skills',
+    'rules',
+    'tools',
+  ];
+  for (const dir of srcDirs) {
+    const dirSrc = path.join(srcRoot, 'src', dir);
+    const dirDest = path.join(sharedRuntimeDir, dir);
+    if (fs.existsSync(dirSrc)) {
+      copyWithPathReplacement(dirSrc, dirDest, sheafRuntimePrefix, dryRun);
+    }
+  }
+
+  if (!dryRun) {
+    const toolsDir = path.join(sharedRuntimeDir, 'tools');
+    if (fs.existsSync(toolsDir) && fs.statSync(toolsDir).isDirectory()) {
+      const toolEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
+      for (const entry of toolEntries) {
+        if (!entry.isFile() || !entry.name.endsWith('.sh')) continue;
+        const toolPath = path.join(toolsDir, entry.name);
+        fs.chmodSync(toolPath, 0o755);
+      }
+    }
+  }
+
+  console.log(
+    `    ${green}✓${reset} Installed shared .sheaf-runtime artifacts\n`,
+  );
 
   for (const [id, runtime] of Object.entries(RUNTIMES)) {
     if (!runtimes[id]) continue;
 
     const targetDir = path.join(installDir, runtime.dirName);
-    const pathPrefix =
-      scope === 'local'
-        ? `./${runtime.dirName}/`
-        : ensureTrailingSlash(targetDir);
 
     console.log(
       `  Target: ${green}${runtime.name}${reset} -> ${cyan}${targetDir}${reset} (${scope})`,
@@ -431,48 +477,23 @@ function install(config, dryRun) {
       runtimeId: id,
       runtime: runtime,
       destDir: promptsDest,
-      pathPrefix,
+      pathPrefix: sheafRuntimePrefix,
       dryRun,
     });
 
     console.log(`    ${green}✓${reset} Installed prompts/commands`);
 
-    // sheaf/*
-    const sheafDest = path.join(targetDir, 'sheaf');
-    if (!dryRun) {
-      fs.mkdirSync(sheafDest, { recursive: true });
-    } else {
-      console.log(`    ${dim}[dry-run] mkdir -p ${sheafDest}${reset}`);
+    const legacySheafDir = path.join(targetDir, 'sheaf');
+    if (fs.existsSync(legacySheafDir)) {
+      console.log(
+        `    ${yellow}⚠${reset} Legacy folder detected and no longer used: ${legacySheafDir}`,
+      );
+      console.log(
+        `      ${dim}You can remove it manually once you confirm your installation.${reset}`,
+      );
     }
 
-    const srcDirs = [
-      'templates',
-      'workflows',
-      'references',
-      'skills',
-      'rules',
-      'tools',
-    ];
-    for (const dir of srcDirs) {
-      const dirSrc = path.join(srcRoot, 'src', dir);
-      const dirDest = path.join(sheafDest, dir);
-      if (fs.existsSync(dirSrc)) {
-        copyWithPathReplacement(dirSrc, dirDest, pathPrefix, dryRun);
-      }
-    }
-
-    if (!dryRun) {
-      const toolsDir = path.join(sheafDest, 'tools');
-      if (fs.existsSync(toolsDir) && fs.statSync(toolsDir).isDirectory()) {
-        const toolEntries = fs.readdirSync(toolsDir, { withFileTypes: true });
-        for (const entry of toolEntries) {
-          if (!entry.isFile() || !entry.name.endsWith('.sh')) continue;
-          const toolPath = path.join(toolsDir, entry.name);
-          fs.chmodSync(toolPath, 0o755);
-        }
-      }
-    }
-    console.log(`    ${green}✓${reset} Installed sheaf artifacts\n`);
+    console.log('');
   }
 
   console.log(`  ${green}${dryRun ? 'Dry-run complete!' : 'Done!'}${reset}\n`);

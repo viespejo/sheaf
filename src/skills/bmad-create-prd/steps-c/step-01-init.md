@@ -62,7 +62,7 @@ If the document exists and has frontmatter with `stepsCompleted` BUT `step-12-co
 
 **Continuation Protocol:**
 
-- **STOP immediately** and load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-01b-continue.md`
+- **STOP immediately** and load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-01b-continue.md`
 - Do not proceed with any initialization tasks
 - Let step-01b handle all continuation logic
 - This is an auto-proceed situation - no user choice needed
@@ -101,7 +101,7 @@ Try to discover the following:
 
 **Document Setup:**
 
-- Copy the template from `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/templates/prd-template.md` to `{outputFile}`
+- Copy the template from `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/templates/prd-template.md` to `{outputFile}`
 - Initialize frontmatter with proper structure including inputDocuments array.
 
 #### C. Present Initialization Results
@@ -138,7 +138,7 @@ Display menu after setup report:
 
 #### Menu Handling Logic:
 
-- IF C: Update output file frontmatter, adding this step name to the end of the list of stepsCompleted, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02-discovery.md
+- IF C: Update output file frontmatter, adding this step name to the end of the list of stepsCompleted, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02-discovery.md
 - IF user provides additional files: Load them, update inputDocuments and documentCounts, redisplay report
 - IF user asks questions: Answer and redisplay menu
 
@@ -149,7 +149,7 @@ Display menu after setup report:
 
 ## CRITICAL STEP COMPLETION NOTE
 
-ONLY WHEN [C continue option] is selected and [frontmatter properly updated with this step added to stepsCompleted and documentCounts], will you then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02-discovery.md` to begin project discovery.
+ONLY WHEN [C continue option] is selected and [frontmatter properly updated with this step added to stepsCompleted and documentCounts], will you then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02-discovery.md` to begin project discovery.
 
 ---
 

@@ -2,7 +2,7 @@
 # File references (ONLY variables used in this step)
 prdFile: '{prd_file_path}'
 validationReport: '{validation_report_path}'  # If provided
-prdPurpose: '{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/prd-purpose.md'
+prdPurpose: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/prd-purpose.md'
 ---
 
 # Step E-2: Deep Review & Analysis
@@ -200,7 +200,7 @@ Display: "**Change Plan Approved**
 
 **Proceeding to edit step...**"
 
-Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-03-edit.md`
+Read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-03-edit.md`
 
 ### 7. Present MENU OPTIONS (If User Wants Discussion)
 
@@ -217,7 +217,7 @@ Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-
 
 - IF A: Invoke the `bmad-advanced-elicitation` skill, then return to discussion
 - IF P: Invoke the `bmad-party-mode` skill, then return to discussion
-- IF C: Document approval, then load {{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-03-edit.md
+- IF C: Document approval, then load {{SHEAF_RUNTIME_DIR}}/skills/bmad-edit-prd/steps-e/step-e-03-edit.md
 - IF Any other: discuss, then redisplay menu
 
 ---

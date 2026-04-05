@@ -12,9 +12,9 @@ Now that you know what the brief is about, fan out subagents in parallel to gath
 
 **Launch in parallel:**
 
-1. **Artifact Analyzer** (`{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/agents/artifact-analyzer.md`) — Scans `{planning_artifacts}` and `{project_knowledge}` for relevant documents. Also scans any specific paths the user provided. Returns structured synthesis of what it found.
+1. **Artifact Analyzer** (`{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/agents/artifact-analyzer.md`) — Scans `{planning_artifacts}` and `{project_knowledge}` for relevant documents. Also scans any specific paths the user provided. Returns structured synthesis of what it found.
 
-2. **Web Researcher** (`{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/agents/web-researcher.md`) — Searches for competitive landscape, market context, trends, and relevant industry data. Returns structured findings scoped to the product domain.
+2. **Web Researcher** (`{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/agents/web-researcher.md`) — Searches for competitive landscape, market context, trends, and relevant industry data. Returns structured findings scoped to the product domain.
 
 ### Graceful Degradation
 
@@ -38,20 +38,20 @@ Once subagent results return (or inline scanning completes):
 - Highlight anything surprising or worth discussing
 - Share the gaps you've identified
 - Ask: "Anything else you'd like to add, or shall we move on to filling in the details?"
-- Route to `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/guided-elicitation.md`
+- Route to `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/guided-elicitation.md`
 
 **Yolo mode:**
 - Absorb all findings silently
-- Skip directly to `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/draft-and-review.md` — you have enough to draft
+- Skip directly to `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/draft-and-review.md` — you have enough to draft
 - The user will refine later
 
 **Headless mode:**
 - Absorb all findings
-- Skip directly to `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/draft-and-review.md`
+- Skip directly to `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/draft-and-review.md`
 - No interaction
 
 ## Stage Complete
 
 This stage is complete when subagent results (or inline scanning fallback) have returned and findings are merged with user context. Route per mode:
-- **Guided** → `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/guided-elicitation.md`
-- **Yolo / Headless** → `{{RUNTIME_DIR}}/sheaf/skills/bmad-product-brief/prompts/draft-and-review.md`
+- **Guided** → `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/guided-elicitation.md`
+- **Yolo / Headless** → `{{SHEAF_RUNTIME_DIR}}/skills/bmad-product-brief/prompts/draft-and-review.md`

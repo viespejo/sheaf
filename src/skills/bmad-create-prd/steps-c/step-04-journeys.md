@@ -145,7 +145,7 @@ Display: "**Select:** [A] Advanced Elicitation [P] Party Mode [C] Continue to Do
 #### Menu Handling Logic:
 - IF A: Invoke the `bmad-advanced-elicitation` skill with the current journey content, process the enhanced journey insights that come back, ask user "Accept these improvements to the user journeys? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
 - IF P: Invoke the `bmad-party-mode` skill with the current journeys, process the collaborative journey improvements and additions, ask user "Accept these changes to the user journeys? (y/n)", if yes update content with improvements then redisplay menu, if no keep original content then redisplay menu
-- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-05-domain.md
+- IF C: Append the final content to {outputFile}, update frontmatter by adding this step name to the end of the stepsCompleted array, then read fully and follow: {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-05-domain.md
 - IF Any other: help user respond, then redisplay menu
 
 #### EXECUTION RULES:
@@ -196,6 +196,6 @@ When user selects 'C', append the content directly to the document using the str
 
 ## NEXT STEP:
 
-After user selects 'C' and content is saved to document, load `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-05-domain.md`.
+After user selects 'C' and content is saved to document, load `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-05-domain.md`.
 
 Remember: Do NOT proceed to step-05 until user explicitly selects 'C' from the A/P/C menu and content is saved!

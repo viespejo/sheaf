@@ -68,32 +68,32 @@ Use the following ordered sequence to determine the next step from the last comp
 
 | Last Completed | Next Step |
 |---|---|
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-01-init.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02-discovery.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02-discovery.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02b-vision.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02b-vision.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-04-journeys.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-04-journeys.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-05-domain.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-05-domain.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-06-innovation.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-06-innovation.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-07-project-type.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-08-scoping.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-08-scoping.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-09-functional.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-09-functional.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-11-polish.md |
-| {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-11-polish.md | {{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-12-complete.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-01-init.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02-discovery.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02-discovery.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02b-vision.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02b-vision.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02c-executive-summary.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-04-journeys.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-04-journeys.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-05-domain.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-05-domain.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-06-innovation.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-06-innovation.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-07-project-type.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-08-scoping.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-08-scoping.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-09-functional.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-09-functional.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-10-nonfunctional.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-11-polish.md |
+| {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-11-polish.md | {{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-12-complete.md |
 
 1. Get the last element from the `stepsCompleted` array
 2. Look it up in the table above to find the next step
 3. That's the next step to load!
 
 **Example:**
-- If `stepsCompleted = ["{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-01-init.md", "{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-02-discovery.md", "{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md"]`
-- Last element is `"{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-03-success.md"`
-- Table lookup → next step is `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-04-journeys.md`
+- If `stepsCompleted = ["{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-01-init.md", "{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-02-discovery.md", "{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md"]`
+- Last element is `"{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-03-success.md"`
+- Table lookup → next step is `{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-04-journeys.md`
 
 ### 4. Handle Workflow Completion
 
-**If `stepsCompleted` array contains `"{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-12-complete.md"`:**
+**If `stepsCompleted` array contains `"{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/steps-c/step-12-complete.md"`:**
 "Great news! It looks like we've already completed the PRD workflow for {{project_name}}.
 
 The final document is ready at `{outputFile}` with all sections completed.

@@ -53,9 +53,9 @@ Use SHEAF paths.
 
 ```markdown
 <execution_context>
-`{{RUNTIME_DIR}}/sheaf/workflows/plan-phase.md`
-`{{RUNTIME_DIR}}/sheaf/templates/PLAN.md`
-`{{RUNTIME_DIR}}/sheaf/references/plan-format.md`
+`{{SHEAF_RUNTIME_DIR}}/workflows/plan-phase.md`
+`{{SHEAF_RUNTIME_DIR}}/templates/PLAN.md`
+`{{SHEAF_RUNTIME_DIR}}/references/plan-format.md`
 </execution_context>
 
 <context>

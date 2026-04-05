@@ -1,7 +1,7 @@
 ---
 # File references (ONLY variables used in this step)
 prdFile: '{prd_file_path}'
-prdPurpose: '{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/data/prd-purpose.md'
+prdPurpose: '{{SHEAF_RUNTIME_DIR}}/skills/bmad-create-prd/data/prd-purpose.md'
 ---
 
 # Step E-3: Edit & Update
@@ -207,7 +207,7 @@ Display:
 
 ### 8. Present MENU OPTIONS
 
-**[V] Run Validation** - Execute full validation workflow ({{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)
+**[V] Run Validation** - Execute full validation workflow ({{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md)
 **[S] Summary Only** - End with summary of changes (no validation)
 **[A] Adjust** - Make additional edits
 **[X] Exit** - Exit edit workflow
@@ -219,7 +219,7 @@ Display:
 
 #### Menu Handling Logic:
 
-- IF V (Validate): Display "Starting validation workflow..." then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md`
+- IF V (Validate): Display "Starting validation workflow..." then read fully and follow: `{{SHEAF_RUNTIME_DIR}}/skills/bmad-validate-prd/steps-v/step-v-01-discovery.md`
 - IF S (Summary): Present edit summary and exit
 - IF A (Adjust): Accept additional requirements, loop back to editing
 - IF X (Exit): Display summary and exit
