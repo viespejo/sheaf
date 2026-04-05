@@ -312,6 +312,28 @@ Create or update product briefs through guided or autonomous discovery using the
   - **Multi-lens Review**: Uses Skeptic and Opportunity reviewers to stress-test the draft.
   - **Distillate Generation**: Captures technical details, rejected ideas, and requirements for downstream use.
 
+### `/sheaf:create-prd`
+
+Create a new Product Requirements Document (PRD) from scratch using the **BMAD Create PRD** skill.
+
+- **Objective**: Transform a product brief or raw requirements into a structured, comprehensive PRD.
+- **Process**: Follows a specialized workflow to ensure all critical sections (context, goals, user stories, technical requirements, etc.) are addressed.
+
+### `/sheaf:edit-prd`
+
+Edit and refine an existing PRD using the **BMAD Edit PRD** skill.
+
+- **Objective**: Update, expand, or pivot an existing requirements document based on new feedback or changing scope.
+- **Process**: Maintains document consistency while incorporating specific changes.
+
+### `/sheaf:validate-prd`
+
+Validate a PRD against organizational or quality standards using the **BMAD Validate PRD** skill.
+
+- **Objective**: Ensure a PRD is complete, consistent, and ready for implementation.
+- **Process**: Analyzes the document for gaps, ambiguities, and alignment with project goals.
+
+
 ---
 
 ## Maintenance Tools
@@ -555,6 +577,12 @@ Available prompt entrypoints under `src/prompts/`:
 - `resume.md`
 - `progress.md`
 - `handoff.md`
+- `product-brief.md`
+- `create-prd.md`
+- `edit-prd.md`
+- `validate-prd.md`
+- `brainstorming.md`
+
 
 If your runtime requires explicit command registration outside prompt files, wire these entrypoints in your host configuration.
 

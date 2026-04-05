@@ -184,6 +184,9 @@ These commands extend capabilities without redefining loop nucleus:
 
 - `sheaf:brainstorming` (skill workflow execution)
 - `sheaf:product-brief` (skill orchestration)
+- `sheaf:create-prd` (skill workflow execution)
+- `sheaf:edit-prd` (skill workflow execution)
+- `sheaf:validate-prd` (skill workflow execution)
 - `sheaf:rfc` (direct RFC planning prompt pattern)
 
 ### Command map
@@ -199,7 +202,11 @@ These commands extend capabilities without redefining loop nucleus:
 | `sheaf:handoff`       | `workflows/handoff-project.md`          | Core      |
 | `sheaf:brainstorming` | `skills/bmad-brainstorming/workflow.md` | Extension |
 | `sheaf:product-brief` | `skills/bmad-product-brief/SKILL.md`    | Extension |
+| `sheaf:create-prd`    | `skills/bmad-create-prd/workflow.md`    | Extension |
+| `sheaf:edit-prd`      | `skills/bmad-edit-prd/workflow.md`      | Extension |
+| `sheaf:validate-prd`  | `skills/bmad-validate-prd/workflow.md`  | Extension |
 | `sheaf:rfc`           | Inline RFC process in prompt body       | Extension |
+
 
 ### Command execution flow (sequence)
 

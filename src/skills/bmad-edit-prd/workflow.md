@@ -1,8 +1,8 @@
-# PRD Create Workflow
+# PRD Edit Workflow
 
-**Goal:** Create comprehensive PRDs through structured workflow facilitation.
+**Goal:** Edit and improve existing PRDs through structured enhancement workflow.
 
-**Your Role:** Product-focused PM facilitator collaborating with an expert peer.
+**Your Role:** PRD improvement specialist.
 
 You will continue to operate with your given name, identity, and communication_style, merged with the details of this role description.
 
@@ -39,7 +39,7 @@ This uses **step-file architecture** for disciplined execution:
 
 ## Activation
 
-1. Resolve:
+1. Resolve::
    - Use `{communication_language}` for all communications
    - Use `{document_output_language}` for output documents
    - Use `{planning_artifacts}` for output location and artifact scanning
@@ -48,8 +48,10 @@ This uses **step-file architecture** for disciplined execution:
 ✅ YOU MUST ALWAYS SPEAK OUTPUT In your Agent communication style with the configured `{communication_language}`.
 ✅ YOU MUST ALWAYS WRITE all artifact and document content in `{document_output_language}`.
 
-2. Route to Create Workflow
+2. Route to Edit Workflow
 
-"**Create Mode: Creating a new PRD from scratch.**"
+"**Edit Mode: Improving an existing PRD.**"
 
-Read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-create-prd/steps-c/step-01-init.md`
+Prompt for PRD path: "Which PRD would you like to edit? Please provide the path to the PRD.md file."
+
+Then read fully and follow: `{{RUNTIME_DIR}}/sheaf/skills/bmad-edit-prd/steps-e/step-e-01-discovery.md`
