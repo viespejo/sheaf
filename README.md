@@ -2,6 +2,8 @@
 
 SHEAF is an opinionated, single-architect workflow system for planning and executing software work with strong continuity across sessions.
 
+The name comes from sheaf theory in mathematics: local data that glues together coherently to form a global structure. The metaphor is intentional — Sheaf takes local pieces of context (tasks, decisions, code, architecture) and articulates them into a coherent AI-assisted flow.
+
 It is designed for day-to-day implementation work with one core principle:
 
 - always maintain momentum with **exactly one clear next action**.
